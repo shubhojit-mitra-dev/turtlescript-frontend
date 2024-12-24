@@ -1,10 +1,12 @@
+import { AppSidebar } from "@/components/app-sidebar";
+import BottomPanel from "@/components/bottom-panel";
+import Navbar from "@/components/Navbar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import QueryProvider from '@/providers/query-provider';
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
 import { ThemeProvider } from "@/components/theme-provider";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app-sidebar"
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,20 +34,24 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+        <QueryProvider>
         <Navbar />
+        <div className="hidden lg:block bg-slate-950"><div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]"></div><div className="hidden sm:block absolute bottom-0 right-[0%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]"></div></div>
         <SidebarProvider defaultOpen={false}>
             <AppSidebar />
+                <SidebarTrigger className="fixed top-0 left-0 mt-5 ml-3 z-50" />
             <main>
-                <SidebarTrigger className="fixed top-0 left-0 m-3 sm:m-5 z-50" />
                 {children}
             </main>
             </SidebarProvider>
-          </ThemeProvider>
+            </QueryProvider>
+          <BottomPanel />
+            </ThemeProvider>
       </body>
     </html>
   );

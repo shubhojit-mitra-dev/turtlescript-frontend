@@ -1,7 +1,29 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+    images: {
+      remotePatterns: [
+        {
+          protocol: 'https',
+          hostname: 'img.freepik.com',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'static.vecteezy.com',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'dynamic.brandcrowd.com',
+          pathname: '/**',
+        },
+        {
+          protocol: 'https',
+          hostname: 'marketplace.canva.com',
+          pathname: '/**',
+        }
+      ],
+    },
+  }
 
-const nextConfig: NextConfig = {
-  /* config options here */
-};
-
-export default nextConfig;
+  module.exports = nextConfig
