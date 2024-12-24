@@ -21,7 +21,7 @@ export default function Navbar() {
     }
 
     return (
-        <nav className="top-0 left-0 right-0 fixed z-40 flex items-center justify-between py-2 border-b">
+        <nav className="top-0 left-0 right-0 fixed z-40 flex items-center justify-between py-2 border-b bg-background">
             <div className='flex items-center justify-between w-full sm:mx-10 mx-5'>
                 <Link href={'/'} className='flex ml-8 sm:ml-3 gap-1 items-center'>
                     <Image src={assets.logo} alt="logo" width={50} priority />

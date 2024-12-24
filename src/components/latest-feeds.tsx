@@ -32,8 +32,8 @@ export function LatestFeeds() {
     }
 
     return (
-      <div className="relative w-full max-w-8xl mx-auto">
-        <div className="relative aspect-[3.5/1] overflow-hidden rounded-lg">
+      <div className="relative w-full max-w-6xl mx-auto">
+        <div className="relative aspect-[5.5/1] overflow-hidden rounded-lg">
           <div className="absolute inset-0 grid">
             {images.map((image, index) => (
               <div

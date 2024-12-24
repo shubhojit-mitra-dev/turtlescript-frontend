@@ -20,3 +20,14 @@ export interface FeaturedImage {
     title: string
     description: string
 }
+
+export interface NewsItem {
+    id: string
+    title: string
+    description: string
+    image: string
+    date: string
+    time: string
+    author: string
+    url: string
+}
