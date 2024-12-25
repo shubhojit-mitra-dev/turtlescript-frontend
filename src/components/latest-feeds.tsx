@@ -28,7 +28,7 @@ export function LatestFeeds() {
     }, [images.length])
 
     if (isLoading) {
-      return <div className="w-full aspect-[3.5/1] animate-pulse bg-gray-200 rounded-lg" />
+      return <div className="w-full aspect-[5.5/1] animate-pulse bg-gray-200 rounded-lg" />
     }
 
     return (

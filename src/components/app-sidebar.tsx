@@ -49,9 +49,9 @@ export function AppSidebar() {
                 <SidebarMenuButton asChild>
                     <Link
                     href={item.url}
-                    className={`flex items-center gap-2 p-5 rounded transition-colors ${
+                    className={`flex items-center gap-2 p-5 rounded ${
                         item.title === 'Settings'
-                        ? 'bg-primary text-primary-foreground hover:bg-primary/30'
+                        ? 'bg-primary text-primary-foreground hover:border hover:border-primary'
                         : 'hover:border hover:border-primary'
                     }`}
                     >
