@@ -33,9 +33,11 @@ export default function Navbar() {
                 <div className='flex gap-3 items-center justify-center'>
                     <ModeToggle />
                     {isLoggedin ? (
-                        <div className='flex gap-3 items-center justify-center my-auto'>
+                        <div className='flex gap-3 items-center justify-center'>
                             <NotificationBell />
+                            <div className='-mb-2'>
                             <ProfileDropdown handleLogout={handleLogout} />
+                            </div>
                         </div>
                     ) : (
                         <div className='flex gap-3'>
