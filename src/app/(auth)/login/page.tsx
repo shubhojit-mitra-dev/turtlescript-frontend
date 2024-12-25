@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
+import Link from 'next/link'
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -43,6 +44,15 @@ export default function Signup() {
 
   return (
     <div className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center">
+        <div className="hidden lg:block bg-slate-950 overflow-hidden">
+            <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]">
+            </div>
+            <div className="hidden sm:block absolute bottom-0 right-[0%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]">
+            </div>
+        </div>
+     <Button variant="outline" className="hidden sm:block absolute top-4 left-4 border-primary">
+        <Link href="/">Back</Link>
+     </Button>
       <div className="w-full max-w-md space-y-6 p-6 bg-background/50 rounded-lg border shadow-lg">
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Login</h1>

@@ -6,14 +6,14 @@ import { Badge } from '@/components/ui/badge'
 import { Notification } from '@/types/types'
 import { formatDistanceToNow } from 'date-fns'
 import { Bell } from 'lucide-react'
+import axios from 'axios'
 
 export function ImportantUpdates() {
   const { data: notifications = [], isLoading } = useQuery<Notification[]>({
     queryKey: ['notifications'],
     queryFn: async () => {
-      const response = await fetch('/api/notifications')
-      if (!response.ok) throw new Error('Failed to fetch notifications')
-      return response.json()
+      const { data } = await axios.get('/api/notifications')
+      return data
     }
   })
 

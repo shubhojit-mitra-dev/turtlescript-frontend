@@ -6,16 +6,16 @@ import { NewsItem } from '@/types/types'
 import Image from 'next/image'
 import { format } from 'date-fns'
 import Link from 'next/link'
+import axios from 'axios'
 
 export function NewsFeed() {
-  const { data: news = [], isLoading } = useQuery<NewsItem[]>({
-    queryKey: ['news-feed'],
-    queryFn: async () => {
-      const response = await fetch('/api/news-feed')
-      if (!response.ok) throw new Error('Failed to fetch news')
-      return response.json()
-    }
-  })
+    const { data: news = [], isLoading } = useQuery<NewsItem[]>({
+        queryKey: ['news-feed'],
+        queryFn: async () => {
+          const { data } = await axios.get('/api/news-feed')
+          return data
+        }
+      })
 
   if (isLoading) {
     return <div className="space-y-4">

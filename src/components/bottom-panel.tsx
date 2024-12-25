@@ -2,7 +2,6 @@ import React from "react"
 import Link from "next/link"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Separator } from "@/components/ui/separator"
 import { getLinks } from "@/data/data"
 import { MessageCircleMore, UserSearchIcon, BrainIcon, GraduationCap, Pickaxe } from "lucide-react"
 
@@ -30,17 +29,16 @@ export default function BottomPanel() {
           <SheetContent side="bottom" className="h-[80vh]">
             <ScrollArea className="h-full w-full rounded-md">
               <div className="p-4">
-                <h3 className="text-lg font-semibold mb-4">{item.title}</h3>
+                <h3 className="text-lg font-semibold mb-8">{item.title}</h3>
                 {item.group.map((group) => (
                   <div key={group.title} className="mb-6">
                     <Link
                       href={group.href}
-                      className="flex items-center gap-2 p-2 rounded-md hover:bg-accent"
+                      className="flex flex-col items-center gap-2 rounded-md hover:bg-accent border p-4"
                     >
-                      <h4 className="text-sm font-medium">{group.title}</h4>
-                      <p className="text-sm text-muted-foreground">{group.description}</p>
+                      <h4 className="text-sm font-medium w-full justify-start">{group.title}</h4>
+                      <p className="text-sm w-full text-muted-foreground justify-start">{group.description}</p>
                     </Link>
-                    <Separator className="my-2" />
                   </div>
                 ))}
               </div>

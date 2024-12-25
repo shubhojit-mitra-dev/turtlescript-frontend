@@ -6,6 +6,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react'
 import Image from 'next/image'
 import { useQuery } from '@tanstack/react-query'
 import { ImagePost } from '@/types/types'
+import axios from 'axios'
 
 export function LatestFeeds() {
     const [currentIndex, setCurrentIndex] = useState(0)
@@ -13,9 +14,8 @@ export function LatestFeeds() {
     const { data: images = [], isLoading } = useQuery<ImagePost[]>({
       queryKey: ['featured-images'],
       queryFn: async () => {
-        const response = await fetch('/api/featured-images')
-        if (!response.ok) throw new Error('Network response was not ok')
-        return response.json()
+        const { data } = await axios.get('/api/featured-images')
+        return data
       }
     })
 
