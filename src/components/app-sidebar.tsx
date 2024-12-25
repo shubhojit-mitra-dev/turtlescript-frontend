@@ -7,7 +7,6 @@ import {
     Sidebar,
     SidebarContent,
     SidebarGroup,
-    SidebarGroupLabel,
     SidebarGroupContent,
     SidebarMenu,
     SidebarMenuButton,
@@ -31,7 +30,7 @@ export function AppSidebar() {
                                     <SidebarMenuButton asChild>
                                         <Link
                                             href={item.url}
-                                            className="flex items-center gap-2 p-2 rounded hover:bg-secondary"
+                                            className="flex items-center gap-2 p-2 rounded hover:border hover:border-primary"
                                         >
                                             <item.icon />
                                             <span>{item.title}</span>
@@ -45,22 +44,23 @@ export function AppSidebar() {
             </SidebarContent>
 
             <SidebarFooter className="list-none gap-y-2 mb-7">
-                {itemsFooter.map((item) => (
-                    <SidebarMenuItem key={item.title}>
-                        <SidebarMenuButton asChild>
-                            <Link
-                                href={item.url}
-                                className={`flex items-center gap-2 p-5 rounded ${item.title === 'Settings'
-                                    ? 'bg-primary text-white hover:bg-primary/50'
-                                    : 'hover:bg-secondary'
-                                    }`}
-                            >
-                                <item.icon />
-                                <span>{item.title}</span>
-                            </Link>
-                        </SidebarMenuButton>
-                    </SidebarMenuItem>
-                ))}
+            {itemsFooter.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                <SidebarMenuButton asChild>
+                    <Link
+                    href={item.url}
+                    className={`flex items-center gap-2 p-5 rounded transition-colors ${
+                        item.title === 'Settings'
+                        ? 'bg-primary text-primary-foreground hover:bg-primary/30'
+                        : 'hover:border hover:border-primary'
+                    }`}
+                    >
+                    <item.icon />
+                    <span>{item.title}</span>
+                    </Link>
+                </SidebarMenuButton>
+                </SidebarMenuItem>
+            ))}
             </SidebarFooter>
             </div>
         </Sidebar>

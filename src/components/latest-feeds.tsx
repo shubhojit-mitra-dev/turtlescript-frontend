@@ -44,7 +44,7 @@ export function LatestFeeds() {
                   zIndex: index === currentIndex ? 1 : 0
                 }}
               >
-                <div className="relative w-full h-full">
+                <div className="relative w-full h-full transition-transform duration-300 hover:scale-125">
                   <Image
                     src={image.url}
                     alt={image.title}

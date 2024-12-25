@@ -37,7 +37,7 @@ export function ImportantUpdates() {
       {notifications.map((notification) => (
         <Card
           key={notification.id}
-          className={`transition-colors ${
+          className={`transition-transform duration-300 transform hover:scale-110 ${
             !notification.isRead ? 'border-primary/50' : ''
           }`}
         >

@@ -1,6 +1,5 @@
 import logo from '@/assets/logo.png';
-import { group } from 'console';
-import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
+import { HandHelping, FileUser, SquareTerminal, BriefcaseBusiness, MessageCircleQuestion, Settings } from "lucide-react"
 
 // Images and svg
 export function getAssets() {
@@ -15,35 +14,35 @@ export function getLinks() {
     const itemsHeader = [
         {
             title: "Opportunity Bridges",
-            url: "#",
-            icon: Home,
+            url: "/opportunity-bridges",
+            icon: HandHelping,
         },
         {
             title: "Resume Analyzer",
-            url: "#",
-            icon: Inbox,
+            url: "/resume-analyzer",
+            icon: FileUser,
         },
         {
             title: "Code Container",
-            url: "#",
-            icon: Calendar,
+            url: "/code-container",
+            icon: SquareTerminal,
         },
         {
             title: "Career Page",
-            url: "#",
-            icon: Search,
+            url: "/careers",
+            icon: BriefcaseBusiness,
         },
     ]
 
     const itemsFooter = [
         {
             title: "Help Center",
-            url: "#",
-            icon: Search,
+            url: "/help",
+            icon: MessageCircleQuestion,
         },
         {
             title: "Settings",
-            url: "#",
+            url: "/settings",
             icon: Settings,
         },
     ]

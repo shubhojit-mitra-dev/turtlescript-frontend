@@ -41,7 +41,7 @@ export function NewsFeed() {
               src={item.image}
               alt={item.title}
               fill
-              className="object-cover"
+              className="object-cover transition-transform duration-300 transform hover:scale-110"
             />
           </div>
           <CardHeader>
