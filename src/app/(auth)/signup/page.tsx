@@ -1,20 +1,20 @@
 'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import Link from 'next/link'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { useRouter } from "next/navigation"
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -42,6 +42,12 @@ export default function Signup() {
     console.log(values)
   }
 
+  const router = useRouter()
+
+    function handleBack() {
+      router.push("/")
+    }
+
   return (
     <div className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center">
         <div className="hidden lg:block bg-slate-950 overflow-hidden">
@@ -50,10 +56,10 @@ export default function Signup() {
             <div className="hidden sm:block absolute bottom-0 right-[0%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]">
             </div>
         </div>
-     <Button variant="outline" className="hidden sm:block absolute top-4 left-4 border-primary">
-        <Link href="/">Back</Link>
+     <Button variant="outline" className="hidden sm:block absolute top-4 left-4 border-primary" onClick={handleBack}>
+        Back
      </Button>
-      <div className="w-full max-w-md space-y-6 p-6 bg-background/50 rounded-lg border shadow-lg">
+      <div className="w-full max-w-md space-y-6 p-6 rounded-lg border shadow-2xl">
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-semibold tracking-tight">Create an account</h1>
           <p className="text-sm text-muted-foreground">

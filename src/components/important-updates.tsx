@@ -7,6 +7,9 @@ import { Notification } from '@/types/types'
 import { formatDistanceToNow } from 'date-fns'
 import { Bell } from 'lucide-react'
 import axios from 'axios'
+import Link from 'next/link'
+import { Button } from '@/components/ui/button'
+import { useAuth } from '@/providers/auth-provider'
 
 export function ImportantUpdates() {
   const { data: notifications = [], isLoading } = useQuery<Notification[]>({
@@ -16,6 +19,8 @@ export function ImportantUpdates() {
       return data
     }
   })
+
+  const { isLoggedin } = useAuth()
 
   if (isLoading) {
     return (
@@ -32,12 +37,30 @@ export function ImportantUpdates() {
     )
   }
 
+  if (!isLoggedin) {
+    return (
+      <Card className="p-6">
+        <CardHeader>
+          <CardTitle>Important Updates</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <p className="text-muted-foreground mb-4">
+            Please log in to view important updates and notifications.
+          </p>
+          <Link href="/login">
+            <Button className="w-full">Log in</Button>
+          </Link>
+        </CardContent>
+      </Card>
+    )
+  }
+
   return (
     <div className="space-y-4">
       {notifications.map((notification) => (
         <Card
           key={notification.id}
-          className={`transition-transform duration-300 transform hover:scale-110 ${
+          className={`cursor-pointer ${
             !notification.isRead ? 'border-primary/50' : ''
           }`}
         >

@@ -12,7 +12,7 @@ body {
 
 @layer base {
     :root {
-      --background: 0 0% 95%;
+      --background: 0 0% 100%;
       --foreground: 240 10% 3.9%;
       --card: 0 0% 100%;
       --card-foreground: 240 10% 3.9%;
@@ -65,15 +65,8 @@ body {
       --chart-4: 280 65% 60%;
       --chart-5: 340 75% 55%;
     }
-
-    .font-press-start {
-        font-family: 'Press Start 2P', cursive;
-        }
-
-    .font-comic-neue {
-        font-family: 'Comic Neue', cursive;
-        }
   }
+
 
 
 @layer utilities {
@@ -111,3 +104,13 @@ body {
         scrollbar-color: hsl(var(--primary)) transparent;
     }
     }
+
+@layer base {
+    .font-press-start {
+        font-family: 'Press Start 2P', cursive;
+        }
+
+    .font-comic-neue {
+        font-family: 'Comic Neue', cursive;
+        }
+}

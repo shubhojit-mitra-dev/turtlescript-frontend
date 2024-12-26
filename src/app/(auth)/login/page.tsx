@@ -1,20 +1,21 @@
 'use client'
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
 import { Button } from "@/components/ui/button"
 import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
+    Form,
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
-import Link from 'next/link'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+import { useRouter } from "next/navigation"
+import { useAuth } from '@/providers/auth-provider'
 
 const formSchema = z.object({
   username: z.string().min(3, {
@@ -28,7 +29,7 @@ const formSchema = z.object({
   }),
 })
 
-export default function Signup() {
+export default function Login() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -38,8 +39,39 @@ export default function Signup() {
     },
   })
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+  const { setIsLoggedin } = useAuth()
+  const router = useRouter()
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      const response = await fetch('/api/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(values),
+      })
+
+      const data = await response.json()
+
+      if (data.success) {
+        setIsLoggedin(true)
+        router.push('/')
+      } else {
+        // Handle login error
+        // console.error('Login failed:', data.message)
+      if (data.message === 'Invalid credentials') {
+          form.setError('username', {
+            type: 'manual',
+            message: 'Invalid credentials',
+          })
+      }
+    }
+    } catch (error) {
+      console.error('Login error:', error)
+    }
+  }
+
+  function handleBack() {
+    router.push("/")
   }
 
   return (
@@ -50,8 +82,8 @@ export default function Signup() {
             <div className="hidden sm:block absolute bottom-0 right-[0%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]">
             </div>
         </div>
-     <Button variant="outline" className="hidden sm:block absolute top-4 left-4 border-primary">
-        <Link href="/">Back</Link>
+     <Button variant="outline" className="hidden sm:block absolute top-4 left-4 border-primary" onClick={handleBack}>
+        Back
      </Button>
       <div className="w-full max-w-md space-y-6 p-6 bg-background/50 rounded-lg border shadow-lg">
         <div className="space-y-2 text-center">

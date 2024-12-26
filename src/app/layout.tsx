@@ -6,7 +6,8 @@ import QueryProvider from '@/providers/query-provider';
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/providers/theme-provider";
+import { AuthProvider } from '@/providers/auth-provider'
 
 const geistSans = Geist({
     variable: "--font-geist-sans",
@@ -28,6 +29,8 @@ export default function RootLayout({
 }: Readonly<{
     children: React.ReactNode;
 }>) {
+
+
     return (
         <html lang="en" suppressHydrationWarning>
             <body
@@ -39,12 +42,13 @@ export default function RootLayout({
                     enableSystem
                     disableTransitionOnChange
                 >
+                    <AuthProvider>
                     <QueryProvider>
                         <Navbar />
                         <div className="fixed inset-0 hidden lg:block overflow-hidden -z-10">
-                            <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]">
+                            <div className="absolute bottom-0 left-[-20%] right-0 top-[-10%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.15),hsl(var(--background)/0))]">
                             </div>
-                            <div className="hidden sm:block absolute bottom-0 right-[0%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,rgba(255,0,182,.15),rgba(240,240,240,0))]">
+                            <div className="hidden sm:block absolute bottom-0 right-[0%] h-[500px] w-[500px] rounded-full bg-[radial-gradient(circle_farthest-side,hsl(var(--primary)/0.15),hsl(var(--background)/0))]">
                             </div>
                         </div>
                         <SidebarProvider defaultOpen={false}>
@@ -56,6 +60,7 @@ export default function RootLayout({
                         </SidebarProvider>
                     </QueryProvider>
                     <BottomPanel />
+                    </AuthProvider>
                 </ThemeProvider>
             </body>
         </html>
