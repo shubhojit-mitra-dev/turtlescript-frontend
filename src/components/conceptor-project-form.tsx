@@ -14,23 +14,21 @@ import LoadingStates from "@/components/loading-states"
 import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from '@/components/ui/form'
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  topicName: z.string().min(3, "Topic name must be at least 3 characters"),
-  topicDomain: z.string().min(3, "Domain must be at least 3 characters"),
-  topicDescription: z.string().min(10, "Description must be at least 10 characters"),
-  discussionType: z.enum(["individual", "group"]),
-  groupSize: z.number()
-    .min(2, "Group must have at least 2 members")
-    .max(10, "Group cannot exceed 10 members")
-    .optional(),
-  members: z.array(
-    z.object({
-      name: z.string().min(2, "Member name must be at least 2 characters")
-    })
-  ).max(9, "Cannot add more than 9 additional members").optional(),
-})
+    name: z.string().min(2, "Name must be at least 2 characters"),
+    topicName: z.string().min(3, "Topic name must be at least 3 characters"),
+    topicDomain: z.string().min(3, "Domain must be at least 3 characters"),
+    topicDescription: z.string().min(10, "Description must be at least 10 characters"),
+    discussionType: z.enum(["individual", "group"]),
+    groupSize: z.number().min(2).max(10).optional(),
+    members: z.array(
+      z.object({
+        name: z.string().min(2, "Member name must be at least 2 characters")
+      })
+    ).optional(),
+  })
 
 type FormData = z.infer<typeof formSchema>
+
 
 export default function ConceptorProjectForm() {
   const [showLoading, setShowLoading] = useState(false)
@@ -49,21 +47,21 @@ export default function ConceptorProjectForm() {
   })
 
   const { mutate } = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await axios.post('/api/conceptor', data)
-      return response.data
+    mutationFn: async (values: FormData) => {
+      return await axios.post('/api/conceptor', values)
     },
     onSuccess: () => {
       setShowLoading(true)
+      form.reset()
     },
   })
 
+  function onSubmit(values: FormData) {
+    mutate(values)
+  }
+
   const discussionType = form.watch("discussionType")
   const groupSize = form.watch("groupSize")
-
-  function onSubmit(data: FormData) {
-    mutate(data)
-  }
 
   if (showLoading) {
     return <LoadingStates onClose={() => setShowLoading(false)} />
@@ -169,19 +167,14 @@ export default function ConceptorProjectForm() {
               name="groupSize"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Group Size (Max 10)</FormLabel>
+                  <FormLabel>Group Size</FormLabel>
                   <FormControl>
                     <Input
                       type="number"
                       min={2}
                       max={10}
                       {...field}
-                      onChange={(e) => {
-                        const value = parseInt(e.target.value)
-                        if (value <= 10) {
-                          field.onChange(value)
-                        }
-                      }}
+                      onChange={e => field.onChange(Number(e.target.value))}
                     />
                   </FormControl>
                   <FormMessage />
@@ -189,31 +182,33 @@ export default function ConceptorProjectForm() {
               )}
             />
 
-            {groupSize && groupSize > 1 && Array.from({ length: groupSize - 1 }).map((_, i) => (
-              <FormField
+            {discussionType === "group" && groupSize && groupSize > 1 && (
+            Array.from({ length: groupSize - 1 }).map((_, i) => (
+                <FormField
                 key={i}
                 control={form.control}
                 name={`members.${i}.name`}
                 render={({ field }) => (
-                  <FormItem>
+                    <FormItem>
                     <FormLabel>Member {i + 2} Name</FormLabel>
                     <FormControl>
-                      <Input {...field} />
+                        <Input
+                        placeholder={`Enter member ${i + 2} name`}
+                        {...field}
+                        value={field.value ?? ""}
+                        />
                     </FormControl>
                     <FormMessage />
-                  </FormItem>
+                    </FormItem>
                 )}
-              />
-            ))}
+                />
+            ))
+            )}
           </>
         )}
 
-        <Button
-          type="submit"
-          className="w-full"
-          disabled={form.formState.isSubmitting}
-        >
-          {form.formState.isSubmitting ? "Submitting..." : "Submit"}
+        <Button type="submit" className="w-full">
+          Submit
         </Button>
       </form>
     </Form>

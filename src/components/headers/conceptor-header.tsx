@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link'
+import { useState } from 'react'
 import { ArrowLeftCircleIcon } from 'lucide-react'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
@@ -31,66 +32,76 @@ const ACCEPTED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png"]
 const ACCEPTED_DOCUMENT_TYPES = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"]
 
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  phone: z.string().min(10, "Enter a valid phone number"),
-  email: z.string().email("Enter a valid email address"),
-  position: z.string().min(2, "Current position is required"),
-  idProof: z
-    .instanceof(File)
-    .refine((file) => file?.size <= MAX_FILE_SIZE, "Max file size is 5MB")
-    .refine(
-      (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
-      "Only .jpg, .jpeg, and .png files are accepted"
-    ),
-  resume: z
-    .instanceof(File)
-    .refine((file) => file?.size <= MAX_FILE_SIZE, "Max file size is 5MB")
-    .refine(
-      (file) => ACCEPTED_DOCUMENT_TYPES.includes(file?.type),
-      "Only .pdf and .docx files are accepted"
-    ),
-})
+    phone: z.string().min(10, "Phone number must be at least 10 digits")
+      .regex(/^[0-9]+$/, "Must be only digits"),
+    position: z.string().min(2, "Current position is required"),
+    idProof: z.instanceof(File)
+      .refine((file) => file?.size <= MAX_FILE_SIZE, "Max file size is 5MB")
+      .refine(
+        (file) => ACCEPTED_IMAGE_TYPES.includes(file?.type),
+        "Only .jpg, .jpeg, and .png files are accepted"
+      )
+      .optional(),
+    resume: z.instanceof(File)
+      .refine((file) => file?.size <= MAX_FILE_SIZE, "Max file size is 5MB")
+      .refine(
+        (file) => ACCEPTED_DOCUMENT_TYPES.includes(file?.type),
+        "Only .pdf and .docx files are accepted"
+      )
+      .optional(),
+  })
 
 export default function ConceptorHeader() {
-  const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
-  })
+    const [open, setOpen] = useState(false)
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: async (data: FormData) => {
-      const response = await axios.post('/api/conceptor/mentor', data, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+    const form = useForm<z.infer<typeof formSchema>>({
+      resolver: zodResolver(formSchema),
+      defaultValues: {
+        phone: "",
+        position: "",
+      },
+    })
+
+    const { mutate, isPending } = useMutation({
+        mutationFn: async (data: FormData) => {
+          const response = await axios.post('/api/conceptor/mentor', data)
+          return response.data
+        },
+        onSuccess: () => {
+          setOpen(false)
+          setTimeout(() => {
+            toast.success("Your mentor application has been submitted!", {
+              duration: 3000,
+            })
+          }, 100)
+          form.reset()
+        },
+        onError: () => {
+          toast.error("Failed to submit application. Please try again.", {
+            duration: 3000,
+          })
+        },
       })
-      return response.data
-    },
-    onSuccess: () => {
-      toast.success("Your mentor application has been submitted!")
-      form.reset()
-    },
-    onError: () => {
-      toast.error("Something went wrong. Please try again.")
-    },
-  })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
+  function onSubmit(values: z.infer<typeof formSchema>) {
     const formData = new FormData()
-    Object.entries(data).forEach(([key, value]) => {
-      formData.append(key, value)
+    Object.entries(values).forEach(([key, value]) => {
+      if (value) formData.append(key, value)
     })
     mutate(formData)
   }
 
-  return (
-    <header className="relative flex items-center justify-between border-b px-6 py-4">
-      <Link href="/" className="text-foreground hover:text-primary">
-        <ArrowLeftCircleIcon className="h-5 w-5" />
-      </Link>
+    return (
+      <header className="relative flex items-center justify-between border-b px-6 py-4">
+        <Link href="/" className="text-foreground hover:text-primary">
+          <ArrowLeftCircleIcon className="h-5 w-5" />
+        </Link>
 
-      <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-semibold">
-        ConceptorX
-      </h1>
+        <h1 className="absolute left-1/2 -translate-x-1/2 text-2xl font-semibold">
+          ConceptorX
+        </h1>
 
-      <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button variant="default">Be a Mentor</Button>
         </DialogTrigger>
@@ -100,7 +111,23 @@ export default function ConceptorHeader() {
           </DialogHeader>
           <Form {...form}>
             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4 py-4">
-              {/* Existing name, phone, email fields */}
+              <FormField
+                control={form.control}
+                name="phone"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Phone Number</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="tel"
+                        placeholder="Enter your phone number"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
               <FormField
                 control={form.control}
@@ -109,7 +136,10 @@ export default function ConceptorHeader() {
                   <FormItem>
                     <FormLabel>Current Position</FormLabel>
                     <FormControl>
-                      <Input placeholder="e.g. Senior Developer at XYZ" {...field} />
+                      <Input
+                        placeholder="e.g. Senior Developer"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -121,13 +151,17 @@ export default function ConceptorHeader() {
                 name="idProof"
                 render={({ field: { onChange, ...field } }) => (
                   <FormItem>
-                    <FormLabel>ID Proof (jpg, jpeg, png)</FormLabel>
+                    <FormLabel>ID Proof</FormLabel>
                     <FormControl>
                       <Input
                         type="file"
                         accept=".jpg,.jpeg,.png"
-                        onChange={(e) => onChange(e.target.files?.[0])}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) onChange(file)
+                        }}
                         {...field}
+                        value={undefined}
                       />
                     </FormControl>
                     <FormMessage />
@@ -140,13 +174,16 @@ export default function ConceptorHeader() {
                 name="resume"
                 render={({ field: { onChange, ...field } }) => (
                   <FormItem>
-                    <FormLabel>Resume (pdf, docx)</FormLabel>
+                    <FormLabel>Resume</FormLabel>
                     <FormControl>
                       <Input
                         type="file"
                         accept=".pdf,.docx"
-                        onChange={(e) => onChange(e.target.files?.[0])}
-                        {...field}
+                        onChange={(e) => {
+                          const file = e.target.files?.[0]
+                          if (file) onChange(file)
+                        }}
+                        {...{ ...field, value: undefined }}
                       />
                     </FormControl>
                     <FormMessage />
@@ -157,14 +194,14 @@ export default function ConceptorHeader() {
               <Button
                 type="submit"
                 className="w-full"
-                disabled={isLoading}
+                disabled={isPending}
               >
-                {isLoading ? "Submitting..." : "Submit Application"}
+                {isPending ? "Submitting..." : "Submit Application"}
               </Button>
             </form>
           </Form>
         </DialogContent>
       </Dialog>
     </header>
-  )
-}
+    )
+  }
