@@ -51,19 +51,19 @@ export function getLinks() {
     const ChatXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "Private Messages",
-            href: "/docs/primitives/alert-dialog",
+            href: "/chat/private",
             description:
                 "Message someone privately, without the need to create a new channel.",
         },
         {
             title: "Chat Hub",
-            href: "/docs/primitives/hover-card",
+            href: "/chat/chathub",
             description:
                 "A place where you can see all your chats in one place.",
         },
         {
             title: "Community",
-            href: "/docs/primitives/progress",
+            href: "/chat/community",
             description:
                 "A place for you to find and join communities, and engage in discussions.",
         },
@@ -72,25 +72,25 @@ export function getLinks() {
     const StudyXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "CourseX",
-            href: "/docs/primitives/alert-dialog",
+            href: "/course",
             description:
                 "Access all your courses in one place.",
         },
         {
             title: "ConceptorX",
-            href: "/docs/primitives/hover-card",
+            href: "/conceptor",
             description:
                 "Get clarity on concepts and topics.",
         },
         {
             title: "Notes",
-            href: "/docs/primitives/progress",
+            href: "/notes",
             description:
                 "Get access to all your notes in one place.",
         },
         {
             title: "Roadmaps",
-            href: "/docs/primitives/progress",
+            href: "/roadmaps",
             description:
                 "A place for you to see your progress and plan your future.",
         },
@@ -99,13 +99,13 @@ export function getLinks() {
     const ProjectXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "CoLabX",
-            href: "/docs/primitives/alert-dialog",
+            href: "/project/colab",
             description:
                 "Collaborate with your team on projects.",
         },
         {
             title: "Projectorium",
-            href: "/docs/primitives/hover-card",
+            href: "/project/projectorium",
             description:
                 "Showcase your project ideas and get collaborators",
         },
@@ -114,7 +114,7 @@ export function getLinks() {
     const DoubtEngineComponents: { title: string; href: string; description: string }[] = [
         {
             title: "Doubt Engine",
-            href: "/docs/primitives/hover-card",
+            href: "/doubt-engine",
             description:
                 "Ask your doubts and get them resolved easily and quickly through the community support.",
         },
@@ -123,7 +123,7 @@ export function getLinks() {
     const GeneratorXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "GeneratorX",
-            href: "/docs/primitives/hover-card",
+            href: "/generator",
             description:
                 "Get Expert guidance on your projects and ideas to take them to the next level.",
         },

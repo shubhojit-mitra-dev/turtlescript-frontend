@@ -11,6 +11,7 @@ export default function NotFoundContent() {
   const assets = getAssets()
 
   return (
+    <div className='fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center'>
     <div className="min-h-screen w-screen flex flex-col items-center justify-center bg-background text-foreground p-4">
       <div className="flex flex-col items-center gap-8">
         <div className="flex items-center gap-8">
@@ -26,7 +27,7 @@ export default function NotFoundContent() {
               fill
               className="object-contain"
               priority
-            />
+              />
           </motion.div>
 
           <motion.h1
@@ -66,6 +67,7 @@ export default function NotFoundContent() {
           </Link>
         </motion.div>
       </div>
+    </div>
     </div>
   )
 }

@@ -95,13 +95,13 @@ body {
     }
 
     ::-webkit-scrollbar-thumb {
-        @apply bg-primary/50 rounded-full transition-colors hover:bg-primary/70;
+        @apply bg-secondary/50 rounded-full transition-colors hover:bg-primary/70;
     }
 
     /* Firefox */
     * {
         scrollbar-width: thin;
-        scrollbar-color: hsl(var(--primary)) transparent;
+        scrollbar-color: hsl(var(--secondary)) transparent;
     }
     }
 
