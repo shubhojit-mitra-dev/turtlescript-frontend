@@ -31,3 +31,21 @@ export interface NewsItem {
     author: string
     url: string
 }
+
+export interface WebsiteFormData {
+    formType: 'Commercial' | 'Personal'
+    firmName: string
+    personName: string
+    websiteName: string
+    projectType: string
+    tag: 'eCommerce' | 'school' | 'cafe' | 'shops' | 'others'
+    shortMessage: string
+    description: string
+    phoneNumber: string
+  }
+
+export interface CardProps {
+    image: string
+    title: string
+    description: string
+  }

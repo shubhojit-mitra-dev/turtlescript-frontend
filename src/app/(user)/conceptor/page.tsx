@@ -1,5 +1,5 @@
-import Header from '@/components/headers/conceptor-header'
-import ProjectForm from '@/components/conceptor-project-form'
+import Header from '@/components/(conceptor)/conceptor-header'
+import ProjectForm from '@/components/(conceptor)/conceptor-project-form'
 
 export default function Home() {
   return (

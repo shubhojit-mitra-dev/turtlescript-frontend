@@ -10,7 +10,7 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Textarea } from '@/components/ui/textarea'
-import LoadingStates from "@/components/loading-states"
+import LoadingStates from "@/components/(conceptor)/loading-states"
 import { Form, FormField, FormItem, FormLabel, FormMessage, FormControl } from '@/components/ui/form'
 
 const formSchema = z.object({
