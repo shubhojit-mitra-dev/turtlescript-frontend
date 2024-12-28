@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/dialog'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import { CardProps } from '@/types/types'
 
 export function Header() {
   const [isOpen, setIsOpen] = useState(false)
@@ -40,8 +41,8 @@ export function Header() {
             <p>Error loading websites</p>
           ) : (
             <ul>
-              {websites && websites.map((website: any) => (
-                <li key={website.id}>{website.title}</li>
+              {websites && websites.map((website: CardProps) => (
+                <li key={website.title}>{website.title}</li>
               ))}
             </ul>
           )}

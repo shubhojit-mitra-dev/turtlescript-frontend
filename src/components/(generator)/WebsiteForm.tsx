@@ -39,7 +39,7 @@ const formSchema = z.object({
   phoneNumber: z.string().min(1, 'Phone number is required').max(10, 'Phone number must not exceed 10 characters').regex(/^[0-9]+$/, "Phone number must be a number"),
 })
 
-export function WebsiteForm() {
+export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
     const form = useForm<WebsiteFormData>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -70,14 +70,15 @@ export function WebsiteForm() {
         }
       })
 
-      const onSubmit = async (values: WebsiteFormData) => {
+      const handleSubmit = async (values: WebsiteFormData) => {
         console.log('Form values:', values)
         mutate(values)
+        onSubmit()
       }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 text-xs">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-3 text-xs">
         <FormField
           control={form.control}
           name="formType"

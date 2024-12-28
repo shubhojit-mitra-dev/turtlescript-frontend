@@ -21,7 +21,7 @@ import {
         <DialogHeader>
             <DialogTitle>Create New Website</DialogTitle>
             </DialogHeader>
-            <WebsiteForm />
+            <WebsiteForm onSubmit={() => {}} />
         </DialogContent>
       </Dialog>
     )

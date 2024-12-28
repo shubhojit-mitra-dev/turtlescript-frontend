@@ -37,7 +37,7 @@ export function Card({ image, title, description }: CardProps) {
             <DialogHeader>
               <DialogTitle>Create New Website</DialogTitle>
             </DialogHeader>
-            <WebsiteForm />
+            <WebsiteForm onSubmit={() => {}} />
           </DialogContent>
         </Dialog>
       </div>
