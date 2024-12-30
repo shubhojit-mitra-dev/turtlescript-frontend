@@ -114,3 +114,30 @@ body {
         font-family: 'Comic Neue', cursive;
         }
 }
+
+/* Add flip countdown custom styles */
+.flip-countdown {
+    --flip-bg: hsl(var(--background));
+    --flip-text: hsl(var(--foreground));
+    --flip-shadow: rgba(0, 0, 0, 0.1);
+  }
+
+  .flip-countdown-card {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0.0, 0.2, 1);
+    will-change: transform;
+  }
+
+  .flip-countdown-card-top,
+  .flip-countdown-card-bottom,
+  .flip-countdown-card-back-bottom,
+  .flip-countdown-card-back-top {
+    box-shadow: 0 0 3px var(--flip-shadow);
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+
+  .flip-countdown-piece {
+    filter: drop-shadow(0 4px 3px var(--flip-shadow));
+  }
