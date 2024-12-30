@@ -84,12 +84,13 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
           name="formType"
           render={({ field }) => (
             <FormItem className="space-y-2">
-              <FormLabel>Form Type</FormLabel>
+              <FormLabel htmlFor='form-type'>Form Type</FormLabel>
               <FormControl>
                 <RadioGroup
                   onValueChange={field.onChange}
                   defaultValue={field.value}
                   className="flex gap-5"
+                  id='form-type'
                 >
                   <FormItem className="flex space-x-3 space-y-0">
                     <FormControl>
@@ -120,9 +121,9 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
             name="firmName"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Your firm&apos;s name</FormLabel>
+                <FormLabel htmlFor='firm-name'>Your firm&apos;s name</FormLabel>
                 <FormControl>
-                  <Input placeholder="Firm name" {...field} value={field.value ?? ''} />
+                  <Input id='firm-name' placeholder="Firm name" {...field} value={field.value ?? ''} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -137,9 +138,9 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
               name="personName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name of the person</FormLabel>
+                  <FormLabel htmlFor='name'>Name of the person</FormLabel>
                   <FormControl>
-                    <Input placeholder="Name of the person" {...field} value={field.value ?? ''} />
+                    <Input id='name' placeholder="Name of the person" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -150,9 +151,9 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
               name="websiteName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name of the website/app</FormLabel>
+                  <FormLabel htmlFor='website-name'>Name of the website/app</FormLabel>
                   <FormControl>
-                    <Input placeholder="Website/app name" {...field} value={field.value ?? ''} />
+                    <Input id='website-name' placeholder="Website/app name" {...field} value={field.value ?? ''} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
@@ -166,9 +167,9 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
           name="projectType"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Project type</FormLabel>
+              <FormLabel htmlFor='project-type'>Project type</FormLabel>
               <FormControl>
-                <Input placeholder="Project type" {...field} value={field.value ?? ''} />
+                <Input id='project-type' placeholder="Project type" {...field} value={field.value ?? ''} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -180,14 +181,14 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
           name="tag"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Tags</FormLabel>
+              <FormLabel htmlFor='tags'>Tags</FormLabel>
               <Select onValueChange={field.onChange} defaultValue={field.value}>
                 <FormControl>
                   <SelectTrigger>
                     <SelectValue placeholder="Select a tag" />
                   </SelectTrigger>
                 </FormControl>
-                <SelectContent>
+                <SelectContent id='tags'>
                   <SelectItem value="eCommerce">eCommerce</SelectItem>
                   <SelectItem value="school">School</SelectItem>
                   <SelectItem value="cafe">Cafe</SelectItem>
@@ -206,9 +207,9 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
             name="shortMessage"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Short message</FormLabel>
+                <FormLabel htmlFor='short-message'>Short message</FormLabel>
                 <FormControl>
-                  <Textarea placeholder="Short message" {...field} value={field.value ?? ''} />
+                  <Textarea id='short-message' placeholder="Short message" {...field} value={field.value ?? ''} />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -221,9 +222,9 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Describe your website or app in 100 words or less</FormLabel>
+              <FormLabel htmlFor='description'>Describe your website or app in 100 words or less</FormLabel>
               <FormControl>
-                <Textarea placeholder="Description" {...field} value={field.value ?? ''} />
+                <Textarea id='description' placeholder="Description" {...field} value={field.value ?? ''} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -235,15 +236,15 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
           name="phoneNumber"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Phone number</FormLabel>
+              <FormLabel htmlFor='phone-number'>Phone number</FormLabel>
               <FormControl>
-                <Input placeholder="Phone number" {...field} value={field.value ?? ''} />
+                <Input id='phone-number' placeholder="Phone number" {...field} value={field.value ?? ''} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="sticky bottom-0 pt-4 bg-background z-50 border-t">
+        {/* <div className="sticky bottom-0 pt-4 bg-background z-50 border-t"> */}
           <Button
             type="submit"
             className="w-full"
@@ -251,7 +252,7 @@ export function WebsiteForm({ onSubmit }: { onSubmit: () => void }) {
           >
             {isPending ? "Submitting..." : "Submit Website Form"}
           </Button>
-        </div>
+        {/* </div> */}
       </form>
     </Form>
   )
