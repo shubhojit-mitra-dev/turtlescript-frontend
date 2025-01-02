@@ -99,7 +99,7 @@ export function getLinks() {
     const ProjectXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "CoLabX",
-            href: "/project/colab",
+            href: "/colabx",
             description:
                 "Collaborate with your team on projects.",
         },
