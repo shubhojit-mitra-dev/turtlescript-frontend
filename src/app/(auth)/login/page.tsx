@@ -54,7 +54,7 @@ export default function Login() {
 
       if (data.success) {
         setIsLoggedin(true)
-        router.push('/')
+        router.push('/profile')
       } else {
         // Handle login error
         // console.error('Login failed:', data.message)

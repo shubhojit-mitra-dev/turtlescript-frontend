@@ -1,4 +1,6 @@
-import { ProjectsGrid } from "@/components/(colabx)/projects-grid"
+
+
+import { ProjectsGrid } from '../../../../components/(colabx)/projects-grid';
 
 const ONGOING_PROJECTS = [
   {

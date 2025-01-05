@@ -105,7 +105,7 @@ export function getLinks() {
         },
         {
             title: "Projectorium",
-            href: "/project/projectorium",
+            href: "/projectorium",
             description:
                 "Showcase your project ideas and get collaborators",
         },

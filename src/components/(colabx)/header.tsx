@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Avatar,AvatarFallback,AvatarImage } from "./avatar"
-import { cn } from "@/lib/utils"
+
 
 export function Header() {
   const pathname = usePathname()
@@ -37,9 +37,9 @@ export function Header() {
             </Button>
             <Button 
               asChild 
-              variant={pathname.startsWith("/my-projects") ? "default" : "destructive"}
+              variant={pathname === "/m-projects" ? "default" : "ghost"}
             >
-              <Link href="/colabx/my-projects">
+              <Link href="/colabx/m-projects">
                 My Projects
               </Link>
             </Button>
