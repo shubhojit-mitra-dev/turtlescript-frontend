@@ -43,8 +43,8 @@ export function ProjectCard({
           <CardTitle className="text-xl">{title}</CardTitle>
           {status && (
             <Badge variant={
-              status === 'completed' ? 'success' :
-              status === 'ongoing' ? 'default' : 'secondary'
+              status === 'completed' ? 'default' :
+              status === 'ongoing' ? 'outline' : 'secondary'
             }>
               {status}
             </Badge>

@@ -1,3 +1,5 @@
+"use client"
+
 import { ArrowLeft, Search, Plus } from 'lucide-react'
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -26,12 +28,12 @@ export default function RootLayout({
               </div>
               <nav className="flex items-center space-x-4">
                 <Button variant="outline" className="bg-secondary hover:bg-secondary/80" asChild>
-                  <Link href="/prebuilt">
+                  <Link href="/projectorium/prebuilt">
                     Prebuilt Projects
                   </Link>
                 </Button>
                 <Button variant="outline" className="bg-secondary hover:bg-secondary/80" asChild>
-                  <Link href="/create">
+                  <Link href="/projectorium/create">
                     <Plus className="mr-2 h-4 w-4" />
                     Create Project
                   </Link>
@@ -40,7 +42,7 @@ export default function RootLayout({
                   <Search className="h-4 w-4" />
                 </Button>
                 <Button variant="default" className="bg-blue-600 hover:bg-blue-700" asChild>
-                  <Link href="/my-projects">My Projects</Link>
+                  <Link href="/projectorium/my-projects">My Projects</Link>
                 </Button>
               </nav>
             </div>

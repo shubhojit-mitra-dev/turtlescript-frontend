@@ -1,6 +1,6 @@
 import { Users, FolderOpen, ChevronRight, Upload, Bell } from 'lucide-react'
 import { Avatar, AvatarFallback } from "@/components/(colabx)/avatar"
-import { Progress } from '@radix-ui/react-progress'
+import { Progress } from '@/components/(profile)/Progress'
 import { Button } from '@/components/ui/button'
 import {
   Card,

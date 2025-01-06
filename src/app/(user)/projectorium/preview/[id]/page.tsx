@@ -16,7 +16,7 @@ export default function PreviewPage({ params }: { params: { id: string } }) {
     id: params.id,
     title: "E-commerce Platform",
     description: "Complete e-commerce solution with product management, shopping cart, and payment integration. Includes admin dashboard and analytics.",
-    image: "/placeholder.svg?height=400&width=800",
+    image: "https://tse1.mm.bing.net/th?id=OIP.qtBNir-0qKy1FMqxbv2jDQHaE8&pid=Api&P=0&h=220",
     price: 999,
     features: [
       "User authentication",
@@ -38,7 +38,7 @@ export default function PreviewPage({ params }: { params: { id: string } }) {
   return (
     <div className="container py-8">
       <Button variant="ghost" className="mb-6" asChild>
-        <a href="/prebuilt">
+        <a href="/turtlescript-frontend/src/app/(user)/projectorium/prebuilt">
           <ArrowLeft className="mr-2 h-4 w-4" />
           Back to Prebuilt Projects
         </a>
