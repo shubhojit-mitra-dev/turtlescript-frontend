@@ -22,7 +22,7 @@ export default function RootLayout({
                     <ArrowLeft className="h-4 w-4" />
                   </Link>
                 </Button>
-                <Link href="/" className="flex items-center space-x-2">
+                <Link href="/projectorium" className="flex items-center space-x-2">
                   <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">Projectorium</span>
                 </Link>
               </div>

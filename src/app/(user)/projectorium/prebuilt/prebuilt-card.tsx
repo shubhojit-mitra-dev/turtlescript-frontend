@@ -3,12 +3,9 @@ import Image from "next/image"
 import { Check } from 'lucide-react'
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card"
+import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
+import Link from "next/link"
+
 
 interface PrebuiltProjectProps {
   id: string
@@ -62,11 +59,15 @@ export function PrebuiltProjectCard({
           <span className="text-muted-foreground">one-time</span>
         </div>
         <div className="space-x-2">
-          <Button variant="outline" onClick={() => window.location.href = `/preview/${id}`}>
-            Preview
-          </Button>
-          <Button onClick={() => window.location.href = `/checkout/${id}`}>
-            Buy Now
+        <Link href={`/preview/${id}`} passHref>
+            <Button variant="outline">
+              Preview
+            </Button>
+          </Link>
+          <Button onClick={() => window.location.href = `/projectorium/checkout/${id}`}>
+          
+                    Buy Now
+                
           </Button>
         </div>
       </CardFooter>

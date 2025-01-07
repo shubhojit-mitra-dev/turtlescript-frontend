@@ -6,11 +6,11 @@ import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/componen
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 
-export default function CheckoutPage({ params }: { params: { id: string } }) {
+export default function CheckoutPage({ }: { params: { id: string } }) {
   const [confirmed, setConfirmed] = useState(false)
 
   return (
-    <div className="container max-w-md py-8">
+<div className="container flex items-center content-center">    <div className=" max-w-md py-8">
       <Card>
         <CardHeader>
           <CardTitle>Confirm Purchase</CardTitle>
@@ -67,7 +67,7 @@ export default function CheckoutPage({ params }: { params: { id: string } }) {
           )}
         </CardFooter>
       </Card>
-    </div>
+    </div></div>
   )
 }
 
