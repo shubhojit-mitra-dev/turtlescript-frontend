@@ -51,13 +51,13 @@ export function getLinks() {
     const ChatXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "Private Messages",
-            href: "/chat/private",
+            href: "/private-message",
             description:
                 "Message someone privately, without the need to create a new channel.",
         },
         {
             title: "Chat Hub",
-            href: "/chat/chathub",
+            href: "/chat-hub",
             description:
                 "A place where you can see all your chats in one place.",
         },
