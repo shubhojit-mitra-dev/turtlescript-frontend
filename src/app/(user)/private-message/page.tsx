@@ -57,7 +57,7 @@ export default function MessagingPage() {
 
   return (
     <ThemeProvider>
-      <div className="flex flex-col h-screen w-full bg-background text-foreground">
+      <div className="flex flex-col h-screen w-screen bg-background text-foreground">
         <Header />
         <main className="flex flex-1 overflow-hidden w-full">
           <ChatList 

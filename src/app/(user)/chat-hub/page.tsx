@@ -65,7 +65,7 @@ export default function ChatHub() {
 
   const handleCreateGroup = async (groupData: any) => {
     try {
-      const response = await fetch('/api/groups', {
+      const response = await fetch('/api/chat-hub/groups/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -90,7 +90,7 @@ export default function ChatHub() {
   )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white w-screen">
       <header className="border-b border-gray-800 backdrop-blur-sm bg-black/30 sticky top-0 z-10">
         <div className="container flex items-center h-16 px-4">
           <Button variant="ghost" size="icon" className="mr-2 hover:bg-gray-800/50 transition-colors">

@@ -14,7 +14,7 @@ export function getLinks() {
     const itemsHeader = [
         {
             title: "Opportunity Bridges",
-            url: "/opportunity-bridges",
+            url: "/opportunity-bridge",
             icon: HandHelping,
         },
         {
@@ -37,7 +37,7 @@ export function getLinks() {
     const itemsFooter = [
         {
             title: "Help Center",
-            url: "/help",
+            url: "/help-center",
             icon: MessageCircleQuestion,
         },
         {
