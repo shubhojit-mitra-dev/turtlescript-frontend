@@ -29,7 +29,7 @@ export default function HelpCenter() {
             <Card className="bg-gray-900 border-gray-800">
               <CardHeader>
                 <CardTitle>Submit a Complaint</CardTitle>
-                <CardDescription>We're here to help. Please fill out the form below.</CardDescription>
+                <CardDescription>Were here to help. Please fill out the form below.</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
