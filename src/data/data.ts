@@ -29,7 +29,7 @@ export function getLinks() {
         },
         {
             title: "Career Page",
-            url: "/careers",
+            url: "/career-page",
             icon: BriefcaseBusiness,
         },
     ]
