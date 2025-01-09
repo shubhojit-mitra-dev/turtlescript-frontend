@@ -68,7 +68,7 @@ export default function GroupChat() {
       <Card>
         <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
           <CardTitle className="text-2xl font-bold">Group Chat</CardTitle>
-          <Link href={`/${groupId}/profile`}>
+          <Link href={`/chat-hub/${groupId}/profile`}>
             <Button variant="ghost" size="sm">
               <Info className="h-4 w-4 mr-2" />
               Group Info
@@ -112,7 +112,7 @@ export default function GroupChat() {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => router.push(`/${groupId}/code`)}
+              onClick={() => router.push(`/chat-hub/${groupId}/code`)}
               title="Share code"
             >
               <Code className="h-4 w-4" />
@@ -120,7 +120,7 @@ export default function GroupChat() {
             <Button
               variant="outline"
               size="icon"
-              onClick={() => router.push(`/${groupId}/qa`)}
+              onClick={() => router.push(`/chat-hub/${groupId}/qa`)}
               title="Ask a question"
             >
               <HelpCircle className="h-4 w-4" />

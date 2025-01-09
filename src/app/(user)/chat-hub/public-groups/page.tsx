@@ -75,7 +75,7 @@ export default function PublicGroups() {
                 show: { opacity: 1, y: 0 }
               }}
             >
-              <Link href={`/groupId/${group.id}`}>
+              <Link href={`/chat-hub/groupId`}>
                 <Card className="h-full overflow-hidden bg-card hover:shadow-xl transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:bg-accent/5">
                   <CardHeader className="bg-primary/5 pb-8 pt-6">
                     <div className="flex items-center space-x-4">
@@ -89,12 +89,9 @@ export default function PublicGroups() {
                     <p className="text-muted-foreground line-clamp-3">{group.description}</p>
                   </CardContent>
                   <CardFooter className="bg-card">
-                  <Link href="/chat-hub/groupId" className="flex items-center space-x-2">
-                  <Button className="w-full bg-primary/90 hover:bg-primary transition-colors duration-300">
+                    <Button className="w-full bg-primary/90 hover:bg-primary transition-colors duration-300">
                       Open Chat
                     </Button>
-                </Link>
-                    
                   </CardFooter>
                 </Card>
               </Link>

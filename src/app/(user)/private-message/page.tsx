@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-
 import ChatList from '@/components/(private-message)/ChatList'
 import ChatView from '@/components/(private-message)/ChatView'
 import { ThemeProvider } from '@/components/(private-message)/ThemeProvider'
@@ -31,7 +30,7 @@ export default function MessagingPage() {
       type: 'private'
     }
     setActiveChat(turtleeScriptChat)
-    
+  
     const savedChats = localStorage.getItem('chats')
     if (savedChats) {
       setChats(JSON.parse(savedChats))
@@ -57,7 +56,7 @@ export default function MessagingPage() {
 
   return (
     <ThemeProvider>
-      <div className="flex flex-col h-screen w-full bg-background text-foreground">
+      <div className="flex flex-col h-screen w-screen bg-background text-foreground">
         <Header />
         <main className="flex flex-1 overflow-hidden w-full">
           <ChatList 

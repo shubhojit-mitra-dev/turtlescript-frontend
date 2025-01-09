@@ -15,7 +15,7 @@ export default function CodeContainer() {
   const [honourScore, setHonourScore] = useState(0)
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gray-900 w-screen">
       <div className="container mx-auto px-4 py-6">
         <header className="bg-black p-4 rounded-t-lg border border-gray-800">
           <h1 className="text-xl font-semibold text-gray-300">Code Container</h1>

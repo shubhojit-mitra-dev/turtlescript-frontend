@@ -91,7 +91,7 @@ export default function PrivateGroups() {
                   <p className="text-muted-foreground">{group.description}</p>
                 </CardContent>
                 <CardFooter className="flex flex-col space-y-2">
-                  <Link href={`/groups/${group.id}`} className="w-full">
+                  <Link href={`/chat-hub/groups/${group.id}`} className="w-full">
                     <Button className="w-full">Open Chat</Button>
                   </Link>
                   {group.uniqueKey && (

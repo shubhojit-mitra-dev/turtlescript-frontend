@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
+
 import { 
   AlertDialog,
   AlertDialogAction,
@@ -22,6 +23,7 @@ import {
 import { Toast } from '@radix-ui/react-toast'
 import { Users, Calendar, MessageSquare, Trash2 } from 'lucide-react'
 import * as Icons from 'lucide-react'
+import { MemberList } from '../../../../../components/(colabx)/member-list';
 
 // TODO: Replace with actual API call
 // API: GET /api/groups/${groupId}
@@ -136,8 +138,8 @@ export default function GroupProfile() {
           </div>
         </CardContent>
         <CardFooter className="flex justify-end space-x-2">
-          <Button variant="outline" onClick={() => router.push(`/${groupId}`)}>Back to Chat</Button>
-          <Button onClick={() => router.push(`/${groupId}/members`)}>View Members</Button>
+          <Button variant="outline" onClick={() => router.push(`/chat-hub/${groupId}`)}>Back to Chat</Button>
+          <Button onClick={() => router.push(`/chat-hub/${groupId}/members`)}>View Members</Button>
         </CardFooter>
       </Card>
     </motion.div>

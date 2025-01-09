@@ -72,28 +72,30 @@ export default function MainPage() {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 1.1 }}
-        className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-3xl"
+        className="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full max-w-2xl"
       >
         <Link href="/chat-hub/public-groups" passHref>
           <Button
             variant="default"
-            size="xl"
-            className="w-full h-24 text-xl font-semibold bg-primary/90 hover:bg-primary transition-all duration-300 group"
+            className="w-full h-16 text-lg font-medium bg-gradient-to-r from-blue-500 to-blue-600 text-white hover:from-blue-600 hover:to-blue-700 transition-all duration-300 group shadow-md rounded-lg flex items-center justify-between px-6"
           >
-            <Users className="mr-3 h-8 w-8 transition-transform group-hover:scale-110" />
-            Public Groups
-            <ArrowRight className="ml-auto h-5 w-5 opacity-70 transition-transform group-hover:translate-x-1" />
+            <div className="flex items-center">
+              <Users className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
+              <span>Public Groups</span>
+            </div>
+            <ArrowRight className="h-5 w-5 opacity-70 transition-transform group-hover:translate-x-1" />
           </Button>
         </Link>
         <Link href="/chat-hub/private-groups" passHref>
           <Button
             variant="outline"
-            size="xl"
-            className="w-full h-24 text-xl font-semibold hover:bg-primary/10 transition-all duration-300 group"
+            className="w-full h-16 text-lg font-medium border-2 border-blue-200 text-blue-700 hover:bg-blue-50 transition-all duration-300 group shadow-md rounded-lg flex items-center justify-between px-6"
           >
-            <Network className="mr-3 h-8 w-8 transition-transform group-hover:scale-110" />
-            Private Groups
-            <ArrowRight className="ml-auto h-5 w-5 opacity-70 transition-transform group-hover:translate-x-1" />
+            <div className="flex items-center">
+              <Network className="mr-3 h-6 w-6 transition-transform group-hover:scale-110" />
+              <span>Private Groups</span>
+            </div>
+            <ArrowRight className="h-5 w-5 opacity-70 transition-transform group-hover:translate-x-1" />
           </Button>
         </Link>
       </motion.div>
