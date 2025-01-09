@@ -1,149 +1,179 @@
-'use client'
+"use client"
 
 import { useState } from 'react'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import { Switch } from "@/components/ui/switch"
-import { Globe, Lock } from 'lucide-react'
+import { createGroup } from '@/app/api/chat-hub/chat-hub'
+import * as Icons from 'lucide-react'
+import { v4 as uuidv4 } from 'uuid'
+import { motion, AnimatePresence } from "framer-motion"
 
-const EMOJI_OPTIONS = ['👨‍💻', '🎮', '📚', '🎨', '🎵', '🏃‍♂️', '🌟', '💡', '🔧', '🎯']
-
-interface CreateGroupDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  onCreateGroup: (groupData: any) => void
+type Group = {
+  id: string;
+  name: string;
+  description: string;
+  icon?: string;
+  isPublic: boolean;
+  uniqueKey?: string;
 }
 
-export function CreateGroupDialog({ open, onOpenChange, onCreateGroup }: CreateGroupDialogProps) {
-  const [formData, setFormData] = useState({
-    name: '',
-    description: '',
-    isPublic: true,
-    icon: '👨‍💻',
-  })
+interface CreateGroupDialogProps {
+  onCreateGroup: (group: Group) => void;
+  isPublic: boolean;
+}
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    try {
-      const response = await fetch('/api/groups', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+const iconOptions = [
+  'MessageSquare', 'Users', 'Code', 'Terminal', 'Laptop', 'Rocket', 
+  'Brain', 'BookOpen', 'Lightbulb', 'Target', 'Puzzle',
+  'Coffee', 'Gamepad', 'Heart', 'Star', 'Zap'
+] as const
+
+type IconName = typeof iconOptions[number]
+
+export function CreateGroupDialog({ onCreateGroup, isPublic }: CreateGroupDialogProps) {
+  const [open, setOpen] = useState(false)
+  const [name, setName] = useState('')
+  const [description, setDescription] = useState('')
+  const [selectedIcon, setSelectedIcon] = useState<IconName>('MessageSquare')
+  const [uniqueKey, setUniqueKey] = useState('')
+
+  const handleCreateGroup = async () => {
+    if (name && description) {
+      const newGroup = await createGroup({ 
+        name, 
+        description,
+        icon: selectedIcon,
+        isPublic,
+        uniqueKey: isPublic ? undefined : uuidv4()
       })
-
-      if (response.ok) {
-        const newGroup = await response.json()
-        onCreateGroup(newGroup)
-        onOpenChange(false)
-        setFormData({
-          name: '',
-          description: '',
-          isPublic: true,
-          icon: '👨‍💻',
-        })
-      } else {
-        console.error('Failed to create group')
-      }
-    } catch (error) {
-      console.error('Error creating group:', error)
+      onCreateGroup(newGroup)
+      setOpen(false)
+      setName('')
+      setDescription('')
+      setSelectedIcon('MessageSquare')
+      setUniqueKey(newGroup.uniqueKey || '')
     }
   }
 
+  const IconComponent = Icons[selectedIcon]
+
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px] bg-gray-900 text-white border-gray-800">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button className="bg-primary/90 hover:bg-primary transition-colors duration-300">
+          Create Group
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create New Group</DialogTitle>
-          <DialogDescription className="text-gray-400">
-            Create a new group for your community. Fill out the details below.
+          <DialogTitle>Create New {isPublic ? 'Public' : 'Private'} Group</DialogTitle>
+          <DialogDescription>
+            Create a new {isPublic ? 'public' : 'private'} group for chat discussions.
           </DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div className="space-y-2">
-            <Label htmlFor="name">Group Name</Label>
+        <motion.div 
+          className="grid gap-6 py-4"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.3 }}
+        >
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="name" className="text-right">
+              Name
+            </Label>
             <Input
               id="name"
-              placeholder="Enter group name"
-              value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-              className="bg-gray-800/50 border-gray-700 text-white"
-              required
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="col-span-3"
             />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label htmlFor="description" className="text-right">
+              Description
+            </Label>
             <Textarea
               id="description"
-              placeholder="Describe your group"
-              value={formData.description}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-              className="bg-gray-800/50 border-gray-700 text-white"
-              required
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="col-span-3"
             />
           </div>
-
-          <div className="space-y-2">
-            <Label>Group Type</Label>
-            <div className="relative w-full h-12 bg-gray-800 rounded-md p-1">
-              <div
-                className={`absolute inset-0 w-1/2 bg-indigo-600 rounded transition-transform duration-300 ease-in-out ${
-                  formData.isPublic ? 'translate-x-0' : 'translate-x-full'
-                }`}
-              />
-              <div className="relative flex h-full">
-                <button
-                  type="button"
-                  className={`flex-1 flex items-center justify-center rounded ${
-                    formData.isPublic ? 'text-white' : 'text-gray-400'
-                  } transition-colors duration-300 z-10`}
-                  onClick={() => setFormData({ ...formData, isPublic: true })}
-                >
-                  <Globe className="h-4 w-4 mr-2" />
-                  Public
-                </button>
-                <button
-                  type="button"
-                  className={`flex-1 flex items-center justify-center rounded ${
-                    !formData.isPublic ? 'text-white' : 'text-gray-400'
-                  } transition-colors duration-300 z-10`}
-                  onClick={() => setFormData({ ...formData, isPublic: false })}
-                >
-                  <Lock className="h-4 w-4 mr-2" />
-                  Private
-                </button>
-              </div>
-            </div>
+          <div className="grid grid-cols-4 items-center gap-4">
+            <Label className="text-right">Icon</Label>
+            <Select value={selectedIcon} onValueChange={(value: IconName) => setSelectedIcon(value)}>
+              <SelectTrigger className="col-span-3">
+                <SelectValue placeholder="Select an icon">
+                  {selectedIcon && (
+                    <div className="flex items-center">
+                      <div className="p-1 bg-primary/10 rounded-full mr-2">
+                        <IconComponent className="h-4 w-4 text-primary" />
+                      </div>
+                      {selectedIcon}
+                    </div>
+                  )}
+                </SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <div className="grid grid-cols-4 gap-2 p-2">
+                  {iconOptions.map((icon) => {
+                    const Icon = Icons[icon]
+                    return (
+                      <SelectItem 
+                        key={icon} 
+                        value={icon}
+                        className="flex flex-col items-center justify-center p-2 cursor-pointer hover:bg-accent rounded-md transition-colors duration-200"
+                      >
+                        <div className="p-2 bg-primary/10 rounded-full mb-1">
+                          <Icon className="h-5 w-5 text-primary" />
+                        </div>
+                        <span className="text-xs text-center">{icon}</span>
+                      </SelectItem>
+                    )}
+                  )}
+                </div>
+              </SelectContent>
+            </Select>
           </div>
-
-          <div className="space-y-2">
-            <Label>Group Icon</Label>
-            <div className="grid grid-cols-5 gap-2">
-              {EMOJI_OPTIONS.map((emoji) => (
-                <Button
-                  key={emoji}
-                  type="button"
-                  variant="outline"
-                  className={`text-2xl h-12 ${
-                    formData.icon === emoji ? 'bg-gray-700 border-indigo-500' : 'bg-gray-800/50 border-gray-700'
-                  }`}
-                  onClick={() => setFormData({ ...formData, icon: emoji })}
-                >
-                  {emoji}
-                </Button>
-              ))}
-            </div>
-          </div>
-
-          <Button type="submit" className="w-full bg-indigo-600 hover:bg-indigo-500">
+          <AnimatePresence>
+            {selectedIcon && (
+              <motion.div 
+                className="flex justify-center mt-4"
+                initial={{ scale: 0, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0, opacity: 0 }}
+                transition={{ type: "spring", stiffness: 260, damping: 20 }}
+              >
+                <div className="p-4 bg-primary/10 rounded-full">
+                  <IconComponent className="h-10 w-10 text-primary" />
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </motion.div>
+        <DialogFooter>
+          <Button type="submit" onClick={handleCreateGroup} className="w-full bg-primary/90 hover:bg-primary transition-colors duration-300">
             Create Group
           </Button>
-        </form>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   )

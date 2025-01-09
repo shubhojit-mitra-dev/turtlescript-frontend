@@ -1,257 +1,102 @@
-'use client'
+"use client"
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-import { ArrowLeft, Search, Menu, Users, Globe, Lock, Plus } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
+import Link from 'next/link'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader } from "@/components/ui/card"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
-import { CreateGroupDialog } from '@/components/(chat-hub)/create-group-dialog'
+import { Card, CardContent } from "@/components/ui/card"
+import { motion } from "framer-motion"
+import { Users, Network, ArrowRight } from 'lucide-react'
 
-interface ChatGroup {
-  id: string
-  name: string
-  members: number
-  isJoined: boolean
-  isPublic: boolean
-  icon: string
-  description?: string
-}
-
-export default function ChatHub() {
-  const router = useRouter()
-  const [groups, setGroups] = useState<ChatGroup[]>([])
-  const [activeTab, setActiveTab] = useState('all')
-  const [pendingApprovals, setPendingApprovals] = useState<string[]>([])
-  const [searchTerm, setSearchTerm] = useState('')
-  const [createDialogOpen, setCreateDialogOpen] = useState(false)
+export default function MainPage() {
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    fetchGroups()
+    setMounted(true)
   }, [])
 
-  const fetchGroups = async () => {
-    try {
-      const response = await fetch('/api/groups')
-      if (response.ok) {
-        const data = await response.json()
-        setGroups(data.map((group: any) => ({ ...group, isJoined: false })))
-      } else {
-        console.error('Failed to fetch groups')
-      }
-    } catch (error) {
-      console.error('Error fetching groups:', error)
-    }
+  if (!mounted) {
+    return null
   }
-
-  const toggleJoin = (groupId: string) => {
-    const group = groups.find(g => g.id === groupId)
-    if (!group) return
-
-    if (group.isPublic) {
-      setGroups(groups.map(g => 
-        g.id === groupId ? { ...g, isJoined: true } : g
-      ))
-    } else {
-      setPendingApprovals(prev => [...prev, groupId])
-    }
-  }
-
-  const handleOpenChat = (group: ChatGroup) => {
-    router.push(`/chat/${group.id}`)
-  }
-
-  const handleCreateGroup = async (groupData: any) => {
-    try {
-      const response = await fetch('/api/groups', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(groupData),
-      })
-
-      if (response.ok) {
-        const newGroup = await response.json()
-        setGroups([...groups, { ...newGroup, isJoined: true }])
-      } else {
-        console.error('Failed to create group')
-      }
-    } catch (error) {
-      console.error('Error creating group:', error)
-    }
-  }
-
-  const filteredGroups = groups.filter(group => 
-    group.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (activeTab === 'all' || (activeTab === 'my-groups' && group.isJoined))
-  )
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
-      <header className="border-b border-gray-800 backdrop-blur-sm bg-black/30 sticky top-0 z-10">
-        <div className="container flex items-center h-16 px-4">
-          <Button variant="ghost" size="icon" className="mr-2 hover:bg-gray-800/50 transition-colors">
-            <ArrowLeft className="h-5 w-5" />
-          </Button>
-          <h1 className="text-xl font-semibold">Chat Hub</h1>
-          <div className="ml-auto flex items-center gap-2">
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button 
-                    variant="ghost" 
-                    size="icon" 
-                    className="hover:bg-gray-800/50 transition-colors"
-                    onClick={() => setCreateDialogOpen(true)}
-                  >
-                    <Plus className="h-5 w-5" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Create new group</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hover:bg-gray-800/50 transition-colors">
-                    <Search className="h-5 w-5" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Search groups</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-            <TooltipProvider>
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button variant="ghost" size="icon" className="hover:bg-gray-800/50 transition-colors">
-                    <Menu className="h-5 w-5" />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  <p>Menu</p>
-                </TooltipContent>
-              </Tooltip>
-            </TooltipProvider>
-          </div>
-        </div>
-      </header>
+    <div className="container mx-auto px-4 py-16 min-h-screen flex flex-col justify-center items-center">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center mb-12"
+      >
+        <h1 className="text-5xl font-bold text-primary mb-4">Welcome to Chat Hub</h1>
+        <p className="text-xl text-muted-foreground">Connect, Share, and Grow Together</p>
+      </motion.div>
 
-      {/* Search and Tabs */}
-      <div className="container px-4 py-4 space-y-4">
-        <input
-          type="text"
-          placeholder="Search groups..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="w-full px-4 py-2 rounded-md bg-gray-800/50 border border-gray-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all"
-        />
-        <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 bg-gray-800/30 rounded-md p-1">
-            <TabsTrigger 
-              value="all" 
-              className="rounded-md data-[state=active]:bg-indigo-600 transition-all"
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.2 }}
+        className="w-full max-w-4xl mb-16"
+      >
+        <Card className="bg-gradient-to-br from-primary/5 via-primary/10 to-primary/5 overflow-hidden">
+          <CardContent className="p-8">
+            <motion.div 
+              className="flex items-center justify-center mb-6"
+              initial={{ scale: 0 }}
+              animate={{ scale: 1 }}
+              transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.5 }}
             >
-              All Groups
-            </TabsTrigger>
-            <TabsTrigger 
-              value="my-groups" 
-              className="rounded-md data-[state=active]:bg-indigo-600 transition-all"
+              <Users className="h-20 w-20 text-primary" />
+            </motion.div>
+            <motion.h2 
+              className="text-3xl font-semibold text-center mb-4"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.7 }}
             >
-              My Groups
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-      </div>
+              Connecting People, Enhancing Lives
+            </motion.h2>
+            <motion.p 
+              className="text-center text-muted-foreground text-lg leading-relaxed"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.9 }}
+            >
+              By joining our community, you open doors to endless possibilities. Connect with like-minded individuals, 
+              share your knowledge, and gain insights from others. Our platform fosters growth, expands your network, 
+              and strengthens social bonds. Together, we create a vibrant ecosystem of learning and collaboration.
+            </motion.p>
+          </CardContent>
+        </Card>
+      </motion.div>
 
-      {/* Groups Grid */}
-      <div className="container px-4 py-4">
-        <AnimatePresence>
-          <motion.div 
-            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, delay: 1.1 }}
+        className="grid grid-cols-1 sm:grid-cols-2 gap-8 w-full max-w-3xl"
+      >
+        <Link href="/chat-hub/public-groups" passHref>
+          <Button
+            variant="default"
+            size="xl"
+            className="w-full h-24 text-xl font-semibold bg-primary/90 hover:bg-primary transition-all duration-300 group"
           >
-            {filteredGroups.map(group => (
-              <motion.div
-                key={group.id}
-                layout
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <Card className="bg-gray-800/50 border-gray-700 overflow-hidden backdrop-blur-sm hover:shadow-lg hover:shadow-indigo-500/10 transition-all duration-300">
-                  <CardHeader className="p-0">
-                    <div className="aspect-video bg-gradient-to-br from-gray-700 to-gray-800 flex items-center justify-center text-6xl">
-                      {group.icon}
-                    </div>
-                  </CardHeader>
-                  <CardContent className="p-4">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-semibold text-white text-lg">{group.name}</h3>
-                        <div className="flex items-center gap-2 text-sm text-gray-300 mt-1">
-                          <Users className="h-4 w-4" />
-                          {group.members.toLocaleString()} members
-                          {group.isPublic ? (
-                            <Globe className="h-4 w-4" />
-                          ) : (
-                            <Lock className="h-4 w-4" />
-                          )}
-                        </div>
-                      </div>
-                      {group.isJoined ? (
-                        <Button
-                          variant="secondary"
-                          size="sm"
-                          className="bg-indigo-600 hover:bg-indigo-500 text-white transition-colors"
-                          onClick={() => handleOpenChat(group)}
-                        >
-                          Open
-                        </Button>
-                      ) : pendingApprovals.includes(group.id) ? (
-                        <div className="text-sm text-gray-300 flex items-center">
-                          Pending
-                        </div>
-                      ) : (
-                        <Button
-                          size="sm"
-                          className="bg-indigo-600 hover:bg-indigo-500 text-white transition-colors"
-                          onClick={() => toggleJoin(group.id)}
-                        >
-                          Join
-                        </Button>
-                      )}
-                    </div>
-                    {group.description && (
-                      <p className="mt-2 text-sm text-gray-400">{group.description}</p>
-                    )}
-                    {pendingApprovals.includes(group.id) && !group.isPublic && (
-                      <div className="mt-2 text-sm text-gray-300 flex items-center justify-center p-2 bg-gray-700/50 rounded-md">
-                        Thank you for your interest. Wait for admins approval.
-                      </div>
-                    )}
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      <CreateGroupDialog 
-        open={createDialogOpen}
-        onOpenChange={setCreateDialogOpen}
-        onCreateGroup={handleCreateGroup}
-      />
+            <Users className="mr-3 h-8 w-8 transition-transform group-hover:scale-110" />
+            Public Groups
+            <ArrowRight className="ml-auto h-5 w-5 opacity-70 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </Link>
+        <Link href="/chat-hub/private-groups" passHref>
+          <Button
+            variant="outline"
+            size="xl"
+            className="w-full h-24 text-xl font-semibold hover:bg-primary/10 transition-all duration-300 group"
+          >
+            <Network className="mr-3 h-8 w-8 transition-transform group-hover:scale-110" />
+            Private Groups
+            <ArrowRight className="ml-auto h-5 w-5 opacity-70 transition-transform group-hover:translate-x-1" />
+          </Button>
+        </Link>
+      </motion.div>
     </div>
   )
 }
