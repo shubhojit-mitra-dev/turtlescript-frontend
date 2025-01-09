@@ -63,7 +63,7 @@ export function getLinks() {
         },
         {
             title: "Community",
-            href: "/chat/community",
+            href: "/communities",
             description:
                 "A place for you to find and join communities, and engage in discussions.",
         },
