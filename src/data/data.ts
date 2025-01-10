@@ -72,7 +72,7 @@ export function getLinks() {
     const StudyXComponents: { title: string; href: string; description: string }[] = [
         {
             title: "CourseX",
-            href: "/course",
+            href: "/coursex",
             description:
                 "Access all your courses in one place.",
         },
