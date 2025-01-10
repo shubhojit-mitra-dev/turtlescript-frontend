@@ -1,6 +1,14 @@
-import { ProjectsGrid } from "@/components/(colabx)/projects-grid"
+import { ProjectGrid } from '@/components/(colabx)/project-grid'
 
-const ONGOING_PROJECTS = [
+const ONGOING_PROJECTS: Array<{
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  stipend: number;
+  status: 'ongoing' | 'completed';
+  progress: number;
+}> = [
   {
     id: '1',
     title: 'TypeScript Dashboard',
@@ -21,7 +29,15 @@ const ONGOING_PROJECTS = [
   },
 ]
 
-const COMPLETED_PROJECTS = [
+const COMPLETED_PROJECTS: Array<{
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+  stipend: number;
+  status: 'ongoing' | 'completed';
+  progress: number;
+}> = [
   {
     id: '3',
     title: 'Community Forum',
@@ -47,20 +63,19 @@ export default function MyProjectsPage() {
     <div className="container mx-auto px-4 py-16 space-y-16">
       <section>
         <h2 className="text-3xl font-bold mb-8 text-white">Ongoing Projects</h2>
-        <ProjectsGrid 
-          projects={ONGOING_PROJECTS} 
-          isMyProject={true}
+        <ProjectGrid
+          projects={ONGOING_PROJECTS}
+          isMyProjects={true}
         />
       </section>
 
       <section>
         <h2 className="text-3xl font-bold mb-8 text-white">Completed Projects</h2>
-        <ProjectsGrid 
-          projects={COMPLETED_PROJECTS} 
-          isMyProject={true}
+        <ProjectGrid
+          projects={COMPLETED_PROJECTS}
+          isMyProjects={true}
         />
       </section>
     </div>
   )
 }
-

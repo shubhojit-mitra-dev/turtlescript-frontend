@@ -1,40 +1,40 @@
-import { Header } from "@/components/(colabx)/header"
-import { ProjectCard } from "@/components/(colabx)/project-card"
-import { CreateProjectDialog } from "@/components/(colabx)/create-project-dialog"
+import { ProjectsGrid } from '@/components/projects-grid'
+import { PrivateProjectForm } from '@/components/private-project-form'
 
-const projects = [
+const PROJECTS = [
   {
-    title: "AI-Powered CRM",
-    description: "Develop an AI-driven Customer Relationship Management system",
+    id: '1',
+    title: 'Enterprise Dashboard',
+    description: 'Build a secure enterprise dashboard with role-based access control.',
+    image: '/placeholder.svg?height=200&width=400',
+    stipend: 6000,
+  },
+  {
+    id: '2',
+    title: 'Financial Platform',
+    description: 'Develop a private financial management platform with advanced features.',
+    image: '/placeholder.svg?height=200&width=400',
+    stipend: 5500,
+  },
+  {
+    id: '3',
+    title: 'Healthcare Analytics',
+    description: 'Create a healthcare analytics platform with HIPAA compliance and security features.',
+    image: '/placeholder.svg?height=200&width=400',
     stipend: 7000,
-    imageUrl: "/placeholder.svg?height=200&width=300"
-  },
-  {
-    title: "Blockchain Supply Chain",
-    description: "Create a blockchain-based supply chain management solution",
-    stipend: 8000,
-    imageUrl: "/placeholder.svg?height=200&width=300"
-  },
-  {
-    title: "VR Training Platform",
-    description: "Build a virtual reality platform for employee training",
-    stipend: 6500,
-    imageUrl: "/placeholder.svg?height=200&width=300"
   },
 ]
 
-export default function PrivateProjects() {
+export default function PrivateProjectsPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+      <div className="container mx-auto px-4 py-8 sm:py-16">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
+          Private Projects
+        </h1>
+        <ProjectsGrid projects={PROJECTS} />
+        <PrivateProjectForm />
       </div>
-      <CreateProjectDialog isPrivate={true} />
     </div>
   )
 }

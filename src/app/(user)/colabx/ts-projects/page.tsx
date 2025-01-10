@@ -1,38 +1,36 @@
-import { Header } from "@/components/(colabx)/header"
-import { ProjectCard } from "@/components/(colabx)/project-card"
+import { ProjectsGrid } from '@/components/projects-grid'
 
-const projects = [
+const PROJECTS = [
   {
-    title: "React Dashboard",
-    description: "Build a modern dashboard with React and TypeScript",
+    id: '1',
+    title: 'TurtleeScript Dashboard',
+    description: 'Build a modern dashboard using React and TurtleeScript with full type safety and component reusability.',
+    image: '/placeholder.svg?height=200&width=400',
     stipend: 5000,
-    imageUrl: "/placeholder.svg?height=200&width=300"
   },
   {
-    title: "TypeScript Game Engine",
-    description: "Develop a 2D game engine using TypeScript and WebGL",
+    id: '2',
+    title: 'TS API Integration',
+    description: 'Develop type-safe API integration layer using TurtleeScript and modern best practices.',
+    image: '/placeholder.svg?height=200&width=400',
+    stipend: 4500,
+  },
+  {
+    id: '3',
+    title: 'TurtleeScript Game Engine',
+    description: 'Create a 2D game engine using TurtleeScript and HTML5 Canvas with performance optimization.',
+    image: '/placeholder.svg?height=200&width=400',
     stipend: 6000,
-    imageUrl: "/placeholder.svg?height=200&width=300"
-  },
-  {
-    title: "Node.js Microservices",
-    description: "Create a scalable microservices architecture with Node.js and TypeScript",
-    stipend: 5500,
-    imageUrl: "/placeholder.svg?height=200&width=300"
   },
 ]
 
-export default function TSProjects() {
+export default function TSProjectsPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
-        </div>
-      </div>
+    <div className="container mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+        TurtleeScript Projects
+      </h1>
+      <ProjectsGrid projects={PROJECTS} />
     </div>
   )
 }

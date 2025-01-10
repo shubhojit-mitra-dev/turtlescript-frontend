@@ -1,40 +1,38 @@
-import { Header } from "@/components/(colabx)/header"
-import { ProjectCard } from "@/components/(colabx)/project-card"
-import { CreateProjectDialog } from "@/components/(colabx)/create-project-dialog"
+import { ProjectsGrid } from '@/components/projects-grid'
+import { PublicProjectForm } from '@/components/public-project-form'
 
-const projects = [
+const PROJECTS = [
   {
-    title: "Community Garden App",
-    description: "Develop an app to manage community gardens and share resources",
+    id: '1',
+    title: 'Open Source CMS',
+    description: 'Contribute to an open source content management system with modern features.',
+    image: '/placeholder.svg?height=200&width=400',
     stipend: 3000,
-    imageUrl: "/placeholder.svg?height=200&width=300"
   },
   {
-    title: "Local Event Planner",
-    description: "Create a platform for organizing and discovering local events",
-    stipend: 4000,
-    imageUrl: "/placeholder.svg?height=200&width=300"
+    id: '2',
+    title: 'Community Forum',
+    description: 'Build a community forum with modern web technologies and real-time features.',
+    image: '/placeholder.svg?height=200&width=400',
+    stipend: 2500,
   },
   {
-    title: "Neighborhood Watch System",
-    description: "Build a secure system for neighborhood watch groups to communicate",
+    id: '3',
+    title: 'Public Data Visualization',
+    description: 'Create interactive data visualizations for public datasets using D3.js.',
+    image: '/placeholder.svg?height=200&width=400',
     stipend: 3500,
-    imageUrl: "/placeholder.svg?height=200&width=300"
   },
 ]
 
-export default function PublicProjects() {
+export default function PublicProjectsPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="container mx-auto p-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((project, index) => (
-            <ProjectCard key={index} {...project} />
-          ))}
-        </div>
-      </div>
-      <CreateProjectDialog isPrivate={false} />
+    <div className="container mx-auto px-4 py-16">
+      <h1 className="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+        Public Projects
+      </h1>
+      <ProjectsGrid projects={PROJECTS} />
+      <PublicProjectForm />
     </div>
   )
 }
