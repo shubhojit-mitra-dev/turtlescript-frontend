@@ -1,6 +1,6 @@
 import { PrebuiltProjectCard } from "./prebuilt-card"
-import { Button } from "@/components/ui/button"
 
+// TODO: Replace this with an API call to fetch prebuilt projects
 const prebuiltProjects = [
   {
     id: "1",
@@ -54,24 +54,25 @@ const prebuiltProjects = [
 
 export default function PrebuiltPage() {
   return (
-    <div className="container py-12">
-      <div className="max-w-2xl mx-auto text-center mb-12">
-        <h1 className="text-4xl font-bold tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-600">
-          Prebuilt Projects
-        </h1>
-        <p className="text-lg text-muted-foreground mb-8">
-          Launch your project faster with our professionally built templates.
-          Each project comes with complete source code and documentation.
-        </p>
-        <Button className="bg-blue-600 hover:bg-blue-700">
-          Explore All Projects
-        </Button>
-      </div>
+    <div className="min-h-screen bg-black text-white">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+        <div className="max-w-4xl mx-auto text-center mb-12 sm:mb-16">
+          <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4 sm:mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
+            Prebuilt Projects
+          </h1>
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+            Launch your project faster with our professionally built templates.
+            Each project comes with complete source code and documentation.
+          </p>
+        </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {prebuiltProjects.map(project => (
-          <PrebuiltProjectCard key={project.id} {...project} />
-        ))}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
+          {prebuiltProjects.map(project => (
+            <div key={project.id} className="flex">
+              <PrebuiltProjectCard {...project} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )

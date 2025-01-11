@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { Calendar, Users } from 'lucide-react'
-import { Progress } from "@radix-ui/react-progress"
+import { Calendar, Users, Download } from 'lucide-react'
+import { Progress } from "@/components/ui/progress"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
@@ -36,6 +36,11 @@ export function ProjectCard({
     created: "bg-orange-500"
   }
 
+  const handleDownloadCertificate = () => {
+    // Implement certificate download logic here
+    console.log("Downloading certificate for project:", id)
+  }
+
   return (
     <Card>
       <CardHeader>
@@ -66,10 +71,20 @@ export function ProjectCard({
           </div>
         </div>
       </CardContent>
-      <CardFooter>
-        <Button className="w-full" asChild>
-          <Link href={`/projects/${id}`}>Open Project</Link>
+      <CardFooter className="flex gap-2">
+        <Button className="flex-1" asChild>
+          <Link href={`/projectorium/projects/${id}`}>Open Project</Link>
         </Button>
+        {status === "completed" && (
+          <Button 
+            variant="outline" 
+            className="flex-1"
+            onClick={handleDownloadCertificate}
+          >
+            <Download className="h-4 w-4 mr-2" />
+            Download Certificate
+          </Button>
+        )}
       </CardFooter>
     </Card>
   )

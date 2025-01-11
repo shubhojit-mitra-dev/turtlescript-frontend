@@ -92,7 +92,7 @@ export default function ConceptorHeader() {
   }
 
     return (
-      <header className="relative flex items-center justify-between border-b px-6 py-4">
+      <header className=" top-0 left-0 right-0 z-50 flex items-center justify-between border-b px-6 py-4 bg-black shadow-md">
         <Link href="/" className="text-foreground hover:text-primary">
           <ArrowLeftCircleIcon className="h-5 w-5" />
         </Link>

@@ -1,100 +1,104 @@
-"use client"
+'use client'
 
 import { useState, useEffect } from 'react'
-import Link from 'next/link'
+import { motion } from 'framer-motion'
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
-import { getAllPublicCommunities } from '@/app/api/communities/communities'
 import { CreateCommunityDialog } from '@/components/(communities)/create-community-dialog'
 import { JoinPrivateCommunityDialog } from '@/components/(communities)/join-private-community-dialog'
-import { Copy } from 'lucide-react'
-import { Toast } from '@radix-ui/react-toast'// Updated import
-
-type Community = {
-  id: string;
-  name: string;
-  members: number;
-  description: string;
-  type: 'public' | 'private';
-  uniqueId?: string;
-}
+import { Users, MessageCircle, Lightbulb, Network, Rocket, Heart, Zap, ArrowRight } from 'lucide-react'
 
 export default function Home() {
-  const [communities, setCommunities] = useState<Community[]>([])
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
-    const fetchCommunities = async () => {
-      const fetchedCommunities = await getAllPublicCommunities()
-      setCommunities(fetchedCommunities)
-    }
-    fetchCommunities()
+    setMounted(true)
   }, [])
 
-  const handleNewCommunity = (newCommunity: Community) => {
-    setCommunities(prevCommunities => {
-      const existingIds = new Set(prevCommunities.map(c => c.id))
-      while (existingIds.has(newCommunity.id)) {
-        newCommunity.id = `community-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
-      }
-      return [...prevCommunities, newCommunity]
-    })
-  }
+  if (!mounted) return null
 
-  const handleJoinCommunity = () => {
-    const fetchCommunities = async () => {
-      const fetchedCommunities = await getAllPublicCommunities()
-      setCommunities(fetchedCommunities)
-    }
-    fetchCommunities()
-  }
-
-  const copyUniqueId = (uniqueId: string) => {
-    navigator.clipboard.writeText(uniqueId)
-    Toast({ // Updated to Toast
-      title: "Copied!",
-      description: "Unique ID copied to clipboard",
-    })
-  }
+  const quotePoints = [
+    { icon: MessageCircle, text: "Engage in Thoughtful Discussions" },
+    { icon: Lightbulb, text: "Enhance Knowledge & Skills" },
+    { icon: Network, text: "Expand Your Network" },
+    { icon: Rocket, text: "Collaborate on Impactful Projects" },
+    { icon: Heart, text: "Support and Encourage Each Other" },
+    { icon: Zap, text: "Find Inspiration and Motivation" },
+    { icon: Users, text: "Build Lifelong Relationships" },
+  ]
 
   return (
-    <div className="space-y-6 p-4 sm:p-6 md:p-8">
-      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center space-y-4 sm:space-y-0 sm:space-x-4">
-        <h2 className="text-2xl sm:text-3xl font-bold">Community</h2>
-        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2 w-full sm:w-auto">
-          <CreateCommunityDialog onCreateCommunity={handleNewCommunity} />
-          <JoinPrivateCommunityDialog onJoinCommunity={handleJoinCommunity} />
+    <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white">
+      <div className="container mx-auto px-4 py-16 sm:px-6 lg:px-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+        >
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold text-center mb-12 bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-pink-700 dark:from-purple-400 dark:to-pink-600">
+            Discover the Power of Community
+          </h1>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
+            <div className="space-y-6">
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                A community is more than just a group of individuals—it's a dynamic network where ideas flourish, knowledge is shared, and growth is inevitable. It's a space where like-minded individuals come together to discuss, collaborate, and build meaningful relationships. Whether you're here to learn, teach, or simply connect, a community provides the foundation for success, both personal and collective.
+              </p>
+              <p className="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                In a community, you can:
+              </p>
+              <ul className="space-y-4">
+                {quotePoints.map((point, index) => (
+                  <motion.li
+                    key={index}
+                    className="flex items-center space-x-3"
+                    initial={{ opacity: 0, x: -20 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.3, delay: 0.1 * (index + 1) }}
+                  >
+                    <point.icon className="h-6 w-6 text-purple-600 dark:text-purple-400" />
+                    <span className="text-gray-600 dark:text-gray-300">{point.text}</span>
+                  </motion.li>
+                ))}
+              </ul>
+            </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="space-y-8"
+          >
+            <div className="bg-gray-100 dark:bg-gray-900 p-6 rounded-lg shadow-2xl">
+              <h2 className="text-2xl font-bold mb-4 text-black dark:text-white">Join the Community</h2>
+              <p className="text-gray-600 dark:text-gray-300 mb-6">
+                Communities are built on the values of curiosity, collaboration, and mutual support. By being part of a community, you don't just grow your knowledge—you grow your impact.
+              </p>
+              <div className="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+                <CreateCommunityDialog onCreateCommunity={() => {}} />
+                <JoinPrivateCommunityDialog onJoinCommunity={() => {}} />
+              </div>
+            </div>
+
+            <div className="bg-gradient-to-r from-purple-600 to-pink-600 p-6 rounded-lg shadow-2xl">
+              <h2 className="text-2xl font-bold mb-4 text-white dark:text-white">Ready to Get Started?</h2>
+              <p className="text-white dark:text-white mb-6">
+                Join a community today and become part of something greater. Because together, we achieve more.
+              </p>
+              <Button className="w-full bg-purple-600 text-white dark:bg-white dark:text-purple-600 hover:bg-purple-700 dark:hover:bg-gray-100 transition-colors duration-300">
+                Explore Communities <ArrowRight className="ml-2 h-4 w-4" />
+              </Button>
+            </div>
+          </motion.div>
         </div>
-      </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-        {communities.map((community) => (
-          <Card key={`community-${community.id}-${Date.now()}`} className="hover:shadow-lg transition-shadow flex flex-col">
-            <CardHeader>
-              <CardTitle className="text-xl sm:text-2xl">{community.name}</CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-              <p className="text-xl sm:text-2xl font-bold">{community.members.toLocaleString()}</p>
-              <p className="text-muted-foreground">members</p>
-              <p className="mt-2 text-sm text-muted-foreground">{community.description}</p>
-              {community.type === 'private' && (
-                <p className="mt-2 text-sm font-medium">Private Community</p>
-              )}
-            </CardContent>
-            {community.type === 'private' && community.uniqueId && (
-              <CardFooter className="flex justify-between items-center">
-                <p className="text-xs sm:text-sm">Unique ID: {community.uniqueId}</p>
-                <Button variant="ghost" size="sm" onClick={() => copyUniqueId(community.uniqueId!)}>
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </CardFooter>
-            )}
-            <CardFooter>
-              <Link href={`/communities/${community.id}`} className="w-full">
-                <Button className="w-full">View Community</Button>
-              </Link>
-            </CardFooter>
-          </Card>
-        ))}
       </div>
     </div>
   )
 }
+

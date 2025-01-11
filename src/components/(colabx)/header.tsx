@@ -1,54 +1,97 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { Button } from "@/components/ui/button"
-import { Avatar,AvatarFallback,AvatarImage } from "./avatar"
-
+import { ChevronLeft, Search } from 'lucide-react'
+import { useState } from "react"
+import { Input } from "@/components/ui/input"
 
 export function Header() {
   const pathname = usePathname()
+  const router = useRouter()
+  const [searchQuery, setSearchQuery] = useState("")
+  const [isSearching, setIsSearching] = useState(false)
   
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault()
+    if (searchQuery.trim()) {
+      router.push(`/search?q=${encodeURIComponent(searchQuery)}`)
+    }
+  }
+
   return (
-    <header className="w-full bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 h-16 z-[99]" >
+    <header className="w-full bg-background h-20 z-[99] border-b border-border/40 shadow-sm sticky top-0">
       <div className="container mx-auto px-4 h-full">
         <div className="flex justify-between items-center h-full">
-          <Link href="/" className="text-2xl font-bold">
-            CoLabX
-          </Link>
-          <nav className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4">
+            {pathname !== "/" && (
+              <Button variant="ghost" size="icon" asChild className="mr-2">
+                <Link href="/">
+                  <ChevronLeft className="h-5 w-5" />
+                  <span className="sr-only">Back to Home</span>
+                </Link>
+              </Button>
+            )}
+            <Link href="/colabx" className="text-2xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              CoLabX
+            </Link>
+          </div>
+          <nav className="flex items-center space-x-1">
             <Button
               asChild
-              variant={pathname === "/ts-project" ? "default" : "ghost"}
+              variant={pathname === "/colabx/ts-projects" ? "default" : "ghost"}
+              size="sm"
             >
               <Link href="/colabx/ts-projects">TS Projects</Link>
             </Button>
             <Button
               asChild
-              variant={pathname === "/public" ? "default" : "ghost"}
+              variant={pathname === "/colabx/public" ? "default" : "ghost"}
+              size="sm"
             >
               <Link href="/colabx/public">Public</Link>
             </Button>
             <Button
               asChild
-              variant={pathname === "/private" ? "default" : "ghost"}
+              variant={pathname === "/colabx/private" ? "default" : "ghost"}
+              size="sm"
             >
               <Link href="/colabx/private">Private</Link>
             </Button>
             <Button 
               asChild 
-              variant={pathname === "/m-projects" ? "default" : "ghost"}
+              variant={pathname === "/colabx/m-projects" ? "default" : "ghost"}
+              size="sm"
             >
-              <Link href="/colabx/m-projects">
+              <Link href="/colabx/my-projects">
                 My Projects
               </Link>
             </Button>
-            <Link href="/profile/avatar" className="ml-4">
-              <Avatar>
-                <AvatarImage src="/placeholder.svg?height=32&width=32" alt="User" />
-                <AvatarFallback>U</AvatarFallback>
-              </Avatar>
-            </Link>
+            {isSearching ? (
+              <form onSubmit={handleSearch} className="flex items-center ml-4">
+                <Input
+                  type="search"
+                  placeholder="Search..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-40 h-9"
+                />
+                <Button type="submit" size="sm" className="ml-2">
+                  Search
+                </Button>
+              </form>
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon"
+                onClick={() => setIsSearching(true)}
+                className="ml-4"
+              >
+                <Search className="h-5 w-5" />
+                <span className="sr-only">Search</span>
+              </Button>
+            )}
           </nav>
         </div>
       </div>

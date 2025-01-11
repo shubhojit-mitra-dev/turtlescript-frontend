@@ -11,7 +11,7 @@ export default function Header() {
   return (
     <header className="h-16 bg-black border-b border-gray-800 flex items-center justify-between px-4">
       <div className="flex items-center">
-        <Link href="/">
+        <Link href="/communities">
           <img src="/placeholder.svg?height=32&width=32" alt="Logo" className="h-8 w-auto" />
         </Link>
         <span className="ml-2 text-xl font-semibold text-gray-300">Private Message</span>

@@ -57,28 +57,31 @@ export default function MessagingPage() {
 
   return (
     <ThemeProvider>
-      <div className="flex flex-col h-screen w-screen bg-background text-foreground">
+      <div className="flex flex-col h-screen w-screen bg-black text-gray-100">
         <Header />
         <main className="flex flex-1 overflow-hidden w-full">
-          <ChatList 
-            onChatSelect={setActiveChat} 
-            activeChat={activeChat} 
-            onCreateChat={handleCreateChat}
-            onDeleteChat={handleDeleteChat}
-            chats={chats}
-          />
-          {activeChat ? (
-            <ChatView 
-              chat={activeChat}
+          <div className="flex w-full h-full">
+            <ChatList 
+              onChatSelect={setActiveChat} 
+              activeChat={activeChat} 
+              onCreateChat={handleCreateChat}
               onDeleteChat={handleDeleteChat}
+              chats={chats}
             />
-          ) : (
-            <div className="flex-1 flex items-center justify-center bg-gradient-to-br from-background to-secondary">
-              <p className="text-xl text-muted-foreground">Select a chat to start messaging</p>
-            </div>
-          )}
+            {activeChat ? (
+              <ChatView 
+                chat={activeChat}
+                onDeleteChat={handleDeleteChat}
+              />
+            ) : (
+              <div className="flex-1 flex items-center justify-center bg-gray-900">
+                <p className="text-xl text-gray-400 font-light">Select a chat to start messaging</p>
+              </div>
+            )}
+          </div>
         </main>
       </div>
     </ThemeProvider>
   )
 }
+

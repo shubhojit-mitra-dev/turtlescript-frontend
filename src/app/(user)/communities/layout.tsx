@@ -30,11 +30,11 @@ export default function RootLayout({
             <header className="border-b">
               <div className="container mx-auto py-4 px-4 sm:px-6 lg:px-8">
                 <div className="flex justify-between items-center">
+                  <h1 className="text-2xl font-bold">Community</h1>
                   <div className="flex items-center space-x-4">
-                    <h1 className="text-2xl font-bold">Community</h1>
                     <MainNav />
+                    <ModeToggle />
                   </div>
-                  <ModeToggle />
                 </div>
               </div>
             </header>

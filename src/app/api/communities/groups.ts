@@ -4,21 +4,20 @@ type Group = {
   id: string;
   name: string;
   description: string;
-  icon?: string;
 }
 
 let communityGroups: Record<string, Group[]> = {
   'web': [
-    { id: 'frontend', name: 'Frontend', description: 'Frontend development discussions', icon: 'Code' },
-    { id: 'backend', name: 'Backend', description: 'Backend development discussions', icon: 'Terminal' },
+    { id: 'frontend', name: 'Frontend', description: 'Frontend development discussions' },
+    { id: 'backend', name: 'Backend', description: 'Backend development discussions' },
   ],
   'mobile': [
-    { id: 'ios', name: 'iOS', description: 'iOS development discussions', icon: 'Laptop' },
-    { id: 'android', name: 'Android', description: 'Android development discussions', icon: 'Smartphone' },
+    { id: 'ios', name: 'iOS', description: 'iOS development discussions' },
+    { id: 'android', name: 'Android', description: 'Android development discussions' },
   ],
   'ai': [
-    { id: 'ml', name: 'Machine Learning', description: 'Machine Learning discussions', icon: 'Brain' },
-    { id: 'nlp', name: 'Natural Language Processing', description: 'NLP discussions', icon: 'MessageSquare' },
+    { id: 'ml', name: 'Machine Learning', description: 'Machine Learning discussions' },
+    { id: 'nlp', name: 'Natural Language Processing', description: 'NLP discussions' },
   ],
 }
 
