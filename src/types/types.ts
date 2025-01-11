@@ -31,3 +31,10 @@ export interface NewsItem {
     author: string
     url: string
 }
+
+export interface RequestFormData {
+    name: string;
+    phoneNumber: string;
+    description: string;
+    callType: 'video' | 'voice';
+  }
