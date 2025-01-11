@@ -1,5 +1,5 @@
-import { ProjectsGrid } from '@/components/projects-grid'
-import { PrivateProjectForm } from '@/components/private-project-form'
+import { ProjectGrid } from '@/components/(colabx)/project-grid'
+import { PrivateProjectForm } from '@/components/(colabx)/private-project-form'
 
 const PROJECTS = [
   {
@@ -27,15 +27,14 @@ const PROJECTS = [
 
 export default function PrivateProjectsPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="min-h-screen w-screen bg-gradient-to-br from-gray-900 to-black text-white">
       <div className="container mx-auto px-4 py-8 sm:py-16">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-8 sm:mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-500">
           Private Projects
         </h1>
-        <ProjectsGrid projects={PROJECTS} />
+        <ProjectGrid projects={PROJECTS} />
         <PrivateProjectForm />
       </div>
     </div>
   )
 }
-

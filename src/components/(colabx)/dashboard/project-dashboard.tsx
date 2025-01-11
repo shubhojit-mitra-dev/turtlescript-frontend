@@ -30,7 +30,7 @@ export function ProjectDashboard({ projectId }: { projectId: string }) {
   if (!project) return null
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen w-full bg-background">
       <DashboardHeader />
 
       <motion.div

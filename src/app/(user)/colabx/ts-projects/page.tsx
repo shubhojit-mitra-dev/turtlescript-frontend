@@ -1,4 +1,4 @@
-import { ProjectsGrid } from '@/components/projects-grid'
+import { ProjectGrid } from '@/components/(colabx)/project-grid'
 
 const PROJECTS = [
   {
@@ -26,12 +26,11 @@ const PROJECTS = [
 
 export default function TSProjectsPage() {
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="mx-auto w-screen px-4 py-16">
       <h1 className="text-4xl font-bold mb-12 text-center bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-purple-500">
         TurtleeScript Projects
       </h1>
-      <ProjectsGrid projects={PROJECTS} />
+      <ProjectGrid projects={PROJECTS} />
     </div>
   )
 }
-

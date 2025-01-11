@@ -160,3 +160,11 @@ export function getLinks() {
 
 
 }
+
+export function colabxLinks() {
+    return [
+        { href: '/colabx/ts-projects', label: 'TS Projects' },
+        { href: '/colabx/public', label: 'Public' },
+        { href: '/colabx/private', label: 'Private' },
+      ]
+}

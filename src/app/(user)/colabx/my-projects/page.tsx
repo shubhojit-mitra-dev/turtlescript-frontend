@@ -60,7 +60,7 @@ const COMPLETED_PROJECTS: Array<{
 
 export default function MyProjectsPage() {
   return (
-    <div className="container mx-auto px-4 py-16 space-y-16">
+    <div className="w-screen mx-auto px-4 py-16 space-y-16">
       <section>
         <h2 className="text-3xl font-bold mb-8 text-white">Ongoing Projects</h2>
         <ProjectGrid

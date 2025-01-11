@@ -1,10 +1,12 @@
+'use client'
+
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 
-export default function Home() {
+export default function ColabXPage() {
   return (
-    <div className="min-h-[calc(100vh-4rem)] flex flex-col items-center justify-center text-center px-4">
+    <div className="min-h-[calc(100vh-4rem)] w-screen flex flex-col items-center justify-center text-center px-4">
       <motion.h1
         className="text-4xl sm:text-6xl md:text-8xl font-bold mb-6"
         initial={{ opacity: 0, y: -50 }}
@@ -41,4 +43,3 @@ export default function Home() {
     </div>
   )
 }
-

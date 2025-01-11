@@ -133,7 +133,7 @@ export function ApplicationForm({ projectTitle }: ApplicationFormProps) {
             <FormField
               control={form.control}
               name="resume"
-              render={({ field: { onChange, ...rest } }) => (
+              render={({ field: { onChange } }) => (
                 <FormItem>
                   <FormLabel>Resume (PDF)</FormLabel>
                   <FormControl>
@@ -146,7 +146,6 @@ export function ApplicationForm({ projectTitle }: ApplicationFormProps) {
                           onChange(file)
                         }
                       }}
-                      {...rest}
                       className="bg-gray-800 border-gray-700 text-white file:bg-blue-600 file:text-white file:border-0 file:rounded-md file:px-4 file:py-2 file:mr-4 file:hover:bg-blue-700 file:transition-colors file:duration-300"
                     />
                   </FormControl>
