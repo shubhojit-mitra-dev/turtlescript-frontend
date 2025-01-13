@@ -31,3 +31,33 @@ export interface NewsItem {
     author: string
     url: string
 }
+export interface Hackathon {
+    id: string;
+    name: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    location: string;
+    type: 'online' | 'offline';
+    techStack: string[];
+    image: string;
+  }
+  
+  export interface FilterState {
+    type: 'all' | 'online' | 'offline';
+    city: string;
+    techStack: string[];
+  }
+  
+  export interface ApplicationFormData {
+    name: string;
+    email: string;
+    phone: string;
+    resume: File | null;
+    github: string;
+    linkedin: string;
+    experience: string;
+    whyJoin: string;
+  }
+  
+  

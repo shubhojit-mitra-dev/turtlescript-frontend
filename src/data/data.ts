@@ -5,18 +5,24 @@ import { HandHelping, FileUser, SquareTerminal, BriefcaseBusiness, MessageCircle
 export function getAssets() {
     return {
         logo,
-    }
+    }    
 }
 
 // Links
 export function getLinks() {
     // Menu items.
-    const itemsHeader = [
+const itemsHeader = [
         {
             title: "Opportunity Bridges",
             url: "/opportunity-bridge",
             icon: HandHelping,
         },
+        
+            {
+                title: "Hackathons",
+                url: "/hackathon",
+                icon: HandHelping,
+            },
         {
             title: "Resume Analyzer",
             url: "/resume-analyzerr",
